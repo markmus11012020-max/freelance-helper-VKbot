@@ -11,13 +11,18 @@ from dataclasses import replace
 from app.backup import backup_loop
 from app.config import Settings, load_settings
 from app.db import Database
+from app.drafts import DraftService
+from app.embeddings import EmbeddingClient
 from app.filters import OrderFilter
+from app.github_sync import GitHubSync
 from app.health import start_health_server
 from app.llm import LlmClient
+from app.memory import MemoryStore
 from app.monitor import Monitor
 from app.notifier import Notifier
 from app.parsers import build_parsers
 from app.parsers.base import HttpClient
+from app.repo_memory import RepoMemory
 from app.vk.client import VkClient
 from app.vk.handlers import BotHandlers
 from app.vk.longpoll import VkLongPoll
@@ -76,23 +81,33 @@ async def run() -> None:
             title="from env",
         )
     log.info(
-        "started: db=%s dry_run=%s vk=%s llm=%s model=%s",
+        "started: db=%s dry_run=%s vk=%s llm=%s model=%s embeddings=%s github=%s",
         settings.database_path,
         settings.dry_run,
         settings.vk_configured,
         settings.llm_configured,
         settings.openai_model,
+        settings.embeddings_configured,
+        settings.github_configured,
     )
 
     if args.init_db:
         await db.close()
         return
 
+    embeddings = EmbeddingClient(settings, db)
+    repo_memory = RepoMemory(settings, db, embeddings)
+    await repo_memory.load()
+    memory = MemoryStore(settings, db)
+    await memory.cleanup()
+    llm = LlmClient(settings, db)
+    drafts = DraftService(settings, db, llm, repo_memory, memory)
+    github_sync = GitHubSync(settings, db, llm, embeddings, repo_memory) if settings.github_configured else None
+
     http = HttpClient(settings)
     await http.start()
     parsers = build_parsers(settings, http)
     order_filter = OrderFilter(settings)
-    llm = LlmClient(settings, db)
     vk = VkClient(settings)
     notifier = Notifier(settings, db, vk)
     monitor = Monitor(settings, db, parsers, order_filter, llm, notifier)
@@ -104,7 +119,7 @@ async def run() -> None:
             await monitor.scan_once()
             return
 
-        health_runner = await start_health_server(settings, db)
+        health_runner = await start_health_server(settings, db, repo_memory)
         tasks.append(asyncio.create_task(monitor.run_forever(), name="monitor"))
         tasks.append(
             asyncio.create_task(
@@ -112,10 +127,27 @@ async def run() -> None:
                 name="backup",
             )
         )
+        if github_sync is not None and not settings.dry_run:
+            if not settings.github_token:
+                log.warning(
+                    "GITHUB_TOKEN is empty: GitHub sync is limited to 60 requests/hour"
+                )
+            tasks.append(
+                asyncio.create_task(github_sync.run_forever(), name="github-sync")
+            )
 
         if settings.vk_configured and not settings.dry_run:
             handlers = BotHandlers(
-                settings, db, vk, notifier, llm, scan_now=monitor.scan_once
+                settings,
+                db,
+                vk,
+                notifier,
+                llm,
+                scan_now=monitor.scan_once,
+                drafts=drafts,
+                memory=memory,
+                repos=repo_memory,
+                github_sync=github_sync,
             )
             longpoll = VkLongPoll(vk, db, handlers.handle_update)
             tasks.append(asyncio.create_task(longpoll.run_forever(), name="vk-longpoll"))
@@ -139,9 +171,12 @@ async def run() -> None:
         await asyncio.gather(*tasks, return_exceptions=True)
         if health_runner is not None:
             await health_runner.cleanup()
+        if github_sync is not None:
+            await github_sync.close()
         await http.close()
         await vk.close()
         await llm.close()
+        await embeddings.close()
         await db.close()
         log.info("stopped")
 

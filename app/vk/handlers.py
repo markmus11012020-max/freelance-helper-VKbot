@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import asyncio
 import json
 import logging
 from datetime import datetime, timezone
@@ -7,8 +8,11 @@ from typing import Any, Awaitable, Callable
 
 from app.config import Settings
 from app.db import Database
+from app.drafts import DraftService, ensure_greeting
 from app.llm import LlmClient
+from app.memory import MemoryStore
 from app.notifier import Notifier
+from app.repo_memory import RepoMemory
 from app.textutil import truncate
 from app.vk.client import VkApiError, VkClient
 
@@ -21,6 +25,14 @@ HELP_TEXT = """Команды бота:
 /last 5 — последние заказы
 /digest — сводка за 24 часа
 /ask вопрос — спросить ИИ
+/draft 123 [Имя] — черновик отклика на заказ
+/repos — состояние базы GitHub-проектов
+/repos sync — обновить базу (админ)
+/repos find запрос — поиск по проектам
+/remember текст — запомнить пожелание к откликам
+/memory — моя память
+/memory clear — очистить историю диалога
+/forget 3 — удалить факт; /forget all — все факты
 /pause — пауза мониторинга (админ)
 /resume — продолжить (админ)
 /add 12345 — добавить человека в беседу (админ)
@@ -38,6 +50,10 @@ class BotHandlers:
         notifier: Notifier,
         llm: LlmClient,
         scan_now: Callable[[], Awaitable[None]] | None = None,
+        drafts: DraftService | None = None,
+        memory: MemoryStore | None = None,
+        repos: RepoMemory | None = None,
+        github_sync: Any | None = None,
     ) -> None:
         self.settings = settings
         self.db = db
@@ -45,6 +61,10 @@ class BotHandlers:
         self.notifier = notifier
         self.llm = llm
         self.scan_now = scan_now
+        self.drafts = drafts
+        self.memory = memory
+        self.repos = repos
+        self.github_sync = github_sync
 
     # ---------- dispatch ----------
 
@@ -84,10 +104,12 @@ class BotHandlers:
         )
 
         if not command.startswith("/"):
-            if not is_chat and is_admin:
-                await self._llm_chat(peer_id, text)
-            elif not is_chat:
-                await self._register_pending(from_id, peer_id)
+            if not is_chat:
+                peer = await self.db.get_peer(peer_id)
+                if is_admin or (peer is not None and peer.get("status") == "active"):
+                    await self._llm_chat(peer_id, from_id, text)
+                else:
+                    await self._register_pending(from_id, peer_id)
             return
 
         if command == "/start":
@@ -104,7 +126,17 @@ class BotHandlers:
             if not argument.strip():
                 await self._reply(peer_id, "Напиши вопрос после /ask, например: /ask какие заказы сегодня?")
             else:
-                await self._llm_chat(peer_id, argument.strip())
+                await self._llm_chat(peer_id, from_id, argument.strip())
+        elif command == "/draft":
+            await self._cmd_draft(peer_id, from_id, argument)
+        elif command == "/repos":
+            await self._cmd_repos(peer_id, from_id, is_admin, argument)
+        elif command == "/remember":
+            await self._cmd_remember(peer_id, from_id, argument)
+        elif command == "/memory":
+            await self._cmd_memory(peer_id, from_id, argument)
+        elif command == "/forget":
+            await self._cmd_forget(peer_id, from_id, argument)
         elif command in {"/pause", "/resume"}:
             await self._cmd_pause(peer_id, from_id, is_admin, command == "/pause")
         elif command in {"/add", "/remove"}:
@@ -212,6 +244,21 @@ class BotHandlers:
             f"(fail={row['fail_count']}, last_ok={row['last_ok'] or '—'})"
             for row in sources
         ] or ["• ещё не запускался"]
+        repo_line = "GitHub-память: не настроена"
+        if self.github_sync is not None:
+            repo_stats = await self.github_sync.stats()
+            repo_line = (
+                f"GitHub-память: {repo_stats.get('indexed', 0)}/"
+                f"{repo_stats.get('total', 0)} репозиториев "
+                f"(partial {repo_stats.get('partial', 0)}, "
+                f"ошибок {repo_stats.get('errors', 0)}), "
+                f"{repo_stats.get('chunks', 0)} чанков, "
+                f"векторов {repo_stats.get('with_vectors', 0)}\n"
+                f"Последняя синхронизация: {repo_stats.get('last_sync') or '—'}"
+            )
+        emb_usage = await self.db.embedding_usage_get(
+            datetime.now(timezone.utc).date().isoformat()
+        )
         text = (
             f"Мониторинг: {'⏸ пауза' if paused else '▶️ работает'}\n"
             f"Интервал: {self.settings.scan_interval_seconds} c\n"
@@ -220,6 +267,8 @@ class BotHandlers:
             f"Последний заказ: {stats['last_order'] or '—'}\n"
             f"LLM: {'on' if self.llm.available else 'off'} · {self.settings.openai_model} · "
             f"токенов сегодня {usage.get('prompt_tokens', 0) + usage.get('completion_tokens', 0)}\n"
+            f"Эмбеддинги сегодня: {emb_usage.get('tokens', 0)} токенов\n"
+            f"{repo_line}\n"
             f"Источники:\n" + "\n".join(source_lines)
         )
         await self._reply(peer_id, text)
@@ -257,6 +306,193 @@ class BotHandlers:
             ]
             summary = "Сводка за 24 часа:\n" + "\n".join(lines)
         await self._reply(peer_id, summary)
+
+    async def _cmd_draft(self, peer_id: int, from_id: int, argument: str) -> None:
+        parts = argument.strip().split(maxsplit=1)
+        if not parts:
+            await self._reply(peer_id, "Формат: /draft 123 [Имя заказчика]")
+            return
+        try:
+            order_id = int(parts[0])
+        except ValueError:
+            await self._reply(peer_id, "Нужен числовой id заказа: /draft 123 [Имя]")
+            return
+        order = await self.db.get_order(order_id)
+        if not order:
+            await self._reply(peer_id, "Заказ не найден.")
+            return
+        await self._send_draft(peer_id, from_id, order, parts[1] if len(parts) > 1 else "")
+
+    async def _send_draft(
+        self,
+        peer_id: int,
+        user_id: int,
+        order: dict[str, Any],
+        override_name: str = "",
+    ) -> None:
+        if not self.llm.available:
+            await self._reply(peer_id, "ИИ не настроен: добавь OPENAI_API_KEY.")
+            return
+        order_id = int(order.get("id") or order.get("order_id") or 0)
+        if self.memory:
+            await self.memory.record(
+                peer_id=peer_id,
+                user_id=user_id,
+                role="user",
+                content=f"Сгенерируй черновик отклика на «{order.get('title') or ''}»",
+                order_id=order_id or None,
+            )
+
+        draft_text = ""
+        sources = ""
+        if self.drafts is not None:
+            result = await self.drafts.generate(
+                order,
+                user_id=user_id,
+                peer_id=peer_id,
+                override_name=override_name,
+            )
+            if result:
+                draft_text = result.text
+                sources = result.sources_text
+        else:
+            body = await self.llm.draft_reply(order)
+            if body:
+                draft_text = ensure_greeting(body, override_name)
+
+        if not draft_text:
+            await self._reply(peer_id, "Не получилось сгенерировать отклик, попробуй позже.")
+            return
+
+        title = truncate(str(order.get("title") or ""), 60)
+        text = f"Черновик отклика на «{title}»:\n\n{draft_text}"
+        if sources:
+            text += "\n\n— Источники для проверки (не копировать заказчику):\n" + sources
+        text = truncate(text, 3900)
+        try:
+            await self.vk.send_message(user_id, text)
+        except VkApiError:
+            await self._reply(peer_id, text)
+
+    async def _cmd_repos(
+        self, peer_id: int, from_id: int, is_admin: bool, argument: str
+    ) -> None:
+        if self.github_sync is None:
+            await self._reply(peer_id, "GitHub-память не настроена: добавь GITHUB_OWNER.")
+            return
+        raw = argument.strip()
+        if raw.lower() == "sync":
+            if not is_admin:
+                await self._reply(peer_id, "Обновлять базу может только админ.")
+                return
+            await self._reply(peer_id, "Запускаю синхронизацию GitHub в фоне…")
+
+            async def run_sync() -> None:
+                try:
+                    result = await self.github_sync.sync_all()
+                except Exception as exc:
+                    log.exception("manual GitHub sync failed")
+                    await self._reply(
+                        peer_id, f"Синхронизация не удалась: {truncate(str(exc), 300)}"
+                    )
+                    return
+                if result.get("busy"):
+                    await self._reply(peer_id, "Синхронизация уже идёт.")
+                    return
+                text = (
+                    "GitHub-синхронизация завершена:\n"
+                    f"найдено: {result.get('seen', 0)}, "
+                    f"обновлено: {result.get('indexed', 0)}, "
+                    f"без изменений: {result.get('skipped', 0)}, "
+                    f"ошибок: {result.get('errors', 0)}, "
+                    f"удалено: {result.get('missing', 0)}"
+                )
+                if result.get("rate_limited"):
+                    text += "\n⚠️ Упёрлись в лимит GitHub. Добавь GITHUB_TOKEN или повтори позже."
+                await self._reply(peer_id, text)
+
+            asyncio.create_task(run_sync(), name="manual-github-sync")
+            return
+
+        if raw.lower().startswith("find "):
+            if self.repos is None:
+                await self._reply(peer_id, "Поиск по проектам недоступен.")
+                return
+            query = raw[5:].strip()
+            if not query:
+                await self._reply(peer_id, "Формат: /repos find телеграм бот")
+                return
+            docs = await self.repos.search(query, top_k=5, dedupe_repos=True)
+            if not docs:
+                await self._reply(peer_id, "Ничего релевантного в базе проектов не нашёл.")
+                return
+            lines = []
+            for doc in docs:
+                lines.append(
+                    f"{doc.get('score', 0)} · {doc.get('repo_full_name')} "
+                    f"({doc.get('kind')})\n{truncate(str(doc.get('content') or ''), 220)}\n"
+                    f"{doc.get('url') or ''}"
+                )
+            await self._reply(peer_id, truncate("\n\n".join(lines), 3900))
+            return
+
+        stats = await self.github_sync.stats()
+        text = (
+            f"GitHub: {stats.get('owner')}\n"
+            f"Репозиториев: {stats.get('indexed', 0)}/{stats.get('total', 0)} "
+            f"(частично {stats.get('partial', 0)}, ошибок {stats.get('errors', 0)})\n"
+            f"Чанков: {stats.get('chunks', 0)}, с векторами: {stats.get('with_vectors', 0)}\n"
+            f"Последняя синхронизация: {stats.get('last_sync') or '—'}\n"
+            f"Идёт сейчас: {'да' if stats.get('busy') else 'нет'}"
+        )
+        if stats.get("last_error"):
+            text += f"\nПоследняя ошибка: {truncate(str(stats['last_error']), 300)}"
+        await self._reply(peer_id, text)
+
+    async def _cmd_remember(self, peer_id: int, from_id: int, argument: str) -> None:
+        if self.memory is None:
+            await self._reply(peer_id, "Память не настроена.")
+            return
+        fact = argument.strip()
+        if not fact:
+            await self._reply(peer_id, "Формат: /remember писать коротко и без цены")
+            return
+        await self.memory.remember_fact(from_id, fact)
+        await self._reply(peer_id, "Запомнил. Это пожелание будет учитываться в откликах.")
+
+    async def _cmd_memory(self, peer_id: int, from_id: int, argument: str) -> None:
+        if self.memory is None:
+            await self._reply(peer_id, "Память не настроена.")
+            return
+        if argument.strip().lower() == "clear":
+            await self.memory.clear(from_id)
+            await self._reply(peer_id, "История диалога очищена. Долгосрочные факты сохранены.")
+            return
+        facts = await self.memory.facts(from_id)
+        recent = await self.memory.context(from_id, limit=8)
+        lines = ["Долгосрочные пожелания:"]
+        if facts:
+            lines.extend(f"{item['id']}. {truncate(str(item['fact']), 300)}" for item in facts)
+        else:
+            lines.append("— пока нет")
+        lines.append("\nПоследние сообщения:")
+        lines.append(recent or "— пока нет")
+        await self._reply(peer_id, truncate("\n".join(lines), 3900))
+
+    async def _cmd_forget(self, peer_id: int, from_id: int, argument: str) -> None:
+        if self.memory is None:
+            await self._reply(peer_id, "Память не настроена.")
+            return
+        raw = argument.strip().lower()
+        if raw in {"all", "все", "всё"}:
+            await self.memory.forget(from_id, None)
+            await self._reply(peer_id, "Все долгосрочные пожелания удалены.")
+            return
+        if not raw.isdigit():
+            await self._reply(peer_id, "Формат: /forget 3 или /forget all")
+            return
+        await self.memory.forget(from_id, int(raw))
+        await self._reply(peer_id, f"Пожелание {raw} удалено.")
 
     async def _cmd_pause(self, peer_id: int, from_id: int, is_admin: bool, pause: bool) -> None:
         if not is_admin:
@@ -379,22 +615,11 @@ class BotHandlers:
         if command == "draft":
             order_id = int(payload.get("order_id") or 0)
             await self._answer_event(event_id, user_id, peer_id, "Генерирую отклик…")
-            if not self.llm.available:
-                await self._reply(peer_id, "ИИ не настроен: добавь OPENAI_API_KEY.")
-                return
             order = await self.db.get_order(order_id)
             if not order:
                 await self._reply(peer_id, "Заказ не найден.")
                 return
-            draft = await self.llm.draft_reply(order)
-            if not draft:
-                await self._reply(peer_id, "Не получилось сгенерировать отклик, попробуй позже.")
-                return
-            text = f"Черновик отклика на «{truncate(order['title'], 60)}»:\n\n{draft}"
-            try:
-                await self.vk.send_message(user_id, text)
-            except VkApiError:
-                await self._reply(peer_id, text)
+            await self._send_draft(peer_id, user_id, order)
             return
 
         await self._answer_event(event_id, user_id, peer_id, "")
@@ -407,15 +632,42 @@ class BotHandlers:
 
     # ---------- helpers ----------
 
-    async def _llm_chat(self, peer_id: int, text: str) -> None:
+    async def _llm_chat(self, peer_id: int, user_id: int, text: str) -> None:
         if not self.llm.available:
             await self._reply(peer_id, "ИИ не настроен: добавь OPENAI_API_KEY и OPENAI_BASE_URL.")
             return
         orders = await self.db.recent_orders(limit=5, min_score=self.settings.min_score)
-        context = "\n".join(
-            f"- {order['title']} | {order['budget_text'] or '—'} | {order['url']}" for order in orders
-        )
-        answer = await self.llm.chat_reply(text, context=context)
+        parts = [
+            "Последние заказы:\n"
+            + "\n".join(
+                f"- {order['title']} | {order['budget_text'] or '—'} | {order['url']}"
+                for order in orders
+            )
+        ]
+        if self.memory:
+            facts = await self.memory.facts_text(user_id)
+            recent = await self.memory.context(user_id, limit=8)
+            if facts:
+                parts.append("Долгосрочные пожелания пользователя:\n" + facts)
+            if recent:
+                parts.append("Предыдущие сообщения:\n" + recent)
+            await self.memory.record(
+                peer_id=peer_id, user_id=user_id, role="user", content=text
+            )
+        if self.repos:
+            try:
+                docs = await self.repos.search(text, top_k=3, dedupe_repos=True)
+            except Exception:
+                log.exception("repo search for chat failed")
+                docs = []
+            evidence = RepoMemory.evidence_text(docs, limit=500)
+            if evidence:
+                parts.append("Мои проекты с GitHub:\n" + evidence)
+        answer = await self.llm.chat_reply(text, context="\n\n".join(parts))
+        if answer and self.memory:
+            await self.memory.record(
+                peer_id=peer_id, user_id=user_id, role="assistant", content=answer
+            )
         await self._reply(peer_id, answer or "Не получилось ответить, попробуй ещё раз.")
 
     async def _reply(self, peer_id: int, text: str) -> None:

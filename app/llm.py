@@ -3,6 +3,7 @@ from __future__ import annotations
 import hashlib
 import json
 import logging
+from dataclasses import dataclass
 from datetime import datetime, timezone
 from typing import Any
 
@@ -29,10 +30,36 @@ SCORE_SYSTEM = """Ты — опытный фрилансер-разработч�
 Верни ТОЛЬКО валидный JSON без markdown:
 {"score": 0-100, "fit": true|false, "reason": "1-2 предложения по-русски, почему подходит или нет", "red_flags": ["короткие флаги риска"]}"""
 
-DRAFT_SYSTEM = """Ты — фрилансер-разработчик. Пишешь короткий отклик на заказ.
+DRAFT_SYSTEM = """Ты — фрилансер-разработчик. Пишешь короткий отклик на заказ заказчику.
 Стиль: по делу, без воды и без лести, 3-6 предложений. Упомяни релевантный опыт
 в 1 предложении, предложи конкретный план из 2-3 шагов и задай 1-2 уточняющих вопроса.
-Не занижай цену. Пиши по-русски, обычным текстом без markdown."""
+Не занижай цену. Пиши по-русски, обычным текстом без markdown.
+Не пиши приветствие и обращение — их добавит бот.
+Используй только факты из блока «Мои проекты». Не придумывай опыт, технологии и ссылки."""
+
+DRAFT_JSON_SYSTEM = """Ты — фрилансер-разработчик. Пишешь короткий отклик на заказ заказчику.
+Стиль: по делу, без воды и без лести, 3-6 предложений. Упомяни релевантный опыт
+в 1 предложении, предложи конкретный план из 2-3 шагов и задай 1-2 уточняющих вопроса.
+Не занижай цену. Пиши по-русски, обычным текстом без markdown.
+Не пиши приветствие и обращение — их добавит бот.
+Используй только факты из блока «Мои проекты». Не придумывай опыт, технологии и ссылки.
+
+Верни ТОЛЬКО валидный JSON без markdown:
+{"client_name": "имя заказчика или null", "reply": "текст отклика без приветствия"}
+
+client_name заполняй только если имя заказчика явно указано в тексте заказа
+(например, «меня зовут Анна», «Здравствуйте, Иван»). Если имени нет или не уверен — null.
+Не путай имя заказчика с именем исполнителя, названием компании или словом «заказчик»."""
+
+REPO_SUMMARY_SYSTEM = """Ты анализируешь GitHub-проект фрилансера для базы примеров в откликах.
+Составь карточку проекта по README, структуре и манифестам:
+- что это и какую задачу решает (1-2 предложения);
+- стек;
+- 2-3 конкретных примера использования или реализованных функций;
+- для каких заказов проект релевантен.
+
+Только факты из предоставленных файлов. Если чего-то нет — пиши «не указано».
+Без markdown и без рекламных формулировок, до 900 символов."""
 
 DIGEST_SYSTEM = """Ты — ассистент фрилансера. Сделай короткую сводку заказов за период:
 5-8 пунктов, самые жирные сверху, у каждого — заголовок, бюджет и одна строка сути.
@@ -40,7 +67,14 @@ DIGEST_SYSTEM = """Ты — ассистент фрилансера. Сдела�
 
 CHAT_SYSTEM = """Ты — ассистент фрилансера-разработчика в VK-беседе. Отвечай кратко и по делу,
 по-русски, обычным текстом. Если вопрос не про заказы, разработку или этот бот — вежливо
-верни разговор к делу."""
+верни разговор к делу. Если в контексте есть проекты с GitHub, опирайся только на них
+и не выдумывай опыт."""
+
+
+@dataclass(slots=True)
+class DraftResponse:
+    body: str
+    client_name: str | None = None
 
 
 def _strip_json(text: str) -> str:
@@ -173,15 +207,110 @@ class LlmClient:
         data["red_flags"] = [str(flag)[:80] for flag in flags if str(flag).strip()][:5]
         return data
 
-    async def draft_reply(self, order: dict[str, Any]) -> str | None:
-        prompt = (
-            f"Заказ: {order.get('title')}\n"
-            f"Источник: {order.get('source')} {order.get('url')}\n"
-            f"Категория: {order.get('category') or '—'}\n"
-            f"Бюджет: {order.get('budget_text') or 'не указан'}\n"
-            f"Описание:\n{truncate(order.get('description', ''), 1800)}"
+    def _draft_prompt(
+        self,
+        order: dict[str, Any],
+        *,
+        client_name: str = "",
+        project_context: str = "",
+        memory_context: str = "",
+    ) -> str:
+        parts = [
+            (
+                f"Заказ: {order.get('title')}\n"
+                f"Источник: {order.get('source')} {order.get('url')}\n"
+                f"Категория: {order.get('category') or '—'}\n"
+                f"Бюджет: {order.get('budget_text') or 'не указан'}\n"
+                f"Описание:\n{truncate(order.get('description', ''), 1800)}"
+            )
+        ]
+        if client_name:
+            parts.append(f"Имя заказчика уже известно: {client_name}. Не добавляй приветствие.")
+        else:
+            parts.append("Имя заказчика в заказе не найдено. Не придумывай его.")
+        parts.append(
+            "Мои проекты (единственный допустимый источник фактов об опыте):\n"
+            + (project_context or "Релевантных проектов не найдено. Не упоминай конкретный опыт.")
+        )
+        if memory_context:
+            parts.append("Краткосрочная память и пожелания пользователя:\n" + memory_context)
+        parts.append(
+            "Напиши только тело отклика. Начни с сути, без «Здравствуйте» и без обращения по имени."
+        )
+        return "\n\n".join(parts)
+
+    async def draft_reply(
+        self,
+        order: dict[str, Any],
+        *,
+        client_name: str = "",
+        project_context: str = "",
+        memory_context: str = "",
+    ) -> str | None:
+        prompt = self._draft_prompt(
+            order,
+            client_name=client_name,
+            project_context=project_context,
+            memory_context=memory_context,
         )
         return await self._call(DRAFT_SYSTEM, prompt, cache=False, max_tokens=700)
+
+    async def draft_reply_with_meta(
+        self,
+        order: dict[str, Any],
+        *,
+        client_name: str = "",
+        project_context: str = "",
+        memory_context: str = "",
+    ) -> DraftResponse | None:
+        prompt = self._draft_prompt(
+            order,
+            client_name=client_name,
+            project_context=project_context,
+            memory_context=memory_context,
+        )
+        raw = await self._call(
+            DRAFT_JSON_SYSTEM, prompt, json_mode=True, cache=False, max_tokens=850
+        )
+        if not raw:
+            return None
+        try:
+            data = json.loads(_strip_json(raw))
+        except json.JSONDecodeError:
+            # Some providers ignore JSON mode; keep the text as a safe fallback.
+            return DraftResponse(body=raw.strip(), client_name=None)
+        body = str(data.get("reply") or data.get("text") or "").strip()
+        if not body:
+            return None
+        name = data.get("client_name")
+        return DraftResponse(
+            body=body,
+            client_name=str(name).strip() if name else None,
+        )
+
+    async def summarize_repo(
+        self,
+        repo: dict[str, Any],
+        *,
+        readme: str,
+        files: list[str],
+        manifests: str,
+    ) -> str | None:
+        prompt = (
+            f"Репозиторий: {repo.get('full_name')}\n"
+            f"Описание: {repo.get('description') or '—'}\n"
+            f"Язык: {repo.get('language') or '—'}\n"
+            f"Темы: {', '.join(repo.get('topics') or []) or '—'}\n\n"
+            f"README:\n{truncate(readme, 6000) or '—'}\n\n"
+            f"Файлы:\n{chr(10).join(files[:80]) or '—'}\n\n"
+            f"Манифесты:\n{truncate(manifests, 2500) or '—'}"
+        )
+        return await self._call(
+            REPO_SUMMARY_SYSTEM,
+            prompt,
+            cache=True,
+            max_tokens=self.settings.github_summary_max_tokens,
+        )
 
     async def digest(self, orders: list[dict[str, Any]]) -> str | None:
         if not orders:

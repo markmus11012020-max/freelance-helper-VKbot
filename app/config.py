@@ -129,6 +129,42 @@ class Settings:
     llm_enabled: bool = True
     llm_daily_token_limit: int = 300_000
 
+    # Embeddings / vector memory
+    embedding_base_url: str = ""
+    embedding_api_key: str = field(default="", repr=False)
+    embedding_model: str = "text-embedding-3-large"
+    embedding_dimensions: int = 1536
+    embedding_batch_size: int = 32
+    embedding_daily_token_limit: int = 3_000_000
+    embedding_timeout_seconds: int = 60
+
+    # GitHub repository knowledge base
+    github_enabled: bool = True
+    github_api_url: str = "https://api.github.com"
+    github_owner: str = "markmus11012020-max"
+    github_token: str = field(default="", repr=False)
+    github_repos: tuple[str, ...] = ()
+    github_include_private: bool = False
+    github_include_forks: bool = False
+    github_include_archived: bool = False
+    github_sync_interval_seconds: int = 3600
+    github_max_requests_per_hour: int = 55
+    github_max_repo_mb: int = 25
+    github_max_files_per_repo: int = 80
+    github_max_chunks_per_repo: int = 120
+    github_max_file_kb: int = 200
+    github_max_total_kb_per_repo: int = 2048
+    github_summary_enabled: bool = True
+    github_summary_max_tokens: int = 900
+
+    # Retrieval and memory
+    rag_top_k: int = 8
+    rag_final_projects: int = 2
+    rag_min_score: float = 0.25
+    short_memory_ttl_days: int = 7
+    short_memory_max_messages: int = 20
+    user_memory_max_facts: int = 50
+
     @property
     def vk_configured(self) -> bool:
         return bool(self.vk_group_token and self.vk_group_id)
@@ -140,6 +176,14 @@ class Settings:
     @property
     def llm_configured(self) -> bool:
         return self.llm_enabled and bool(self.openai_api_key)
+
+    @property
+    def embeddings_configured(self) -> bool:
+        return bool(self.embedding_model and (self.embedding_api_key or self.openai_api_key))
+
+    @property
+    def github_configured(self) -> bool:
+        return self.github_enabled and bool(self.github_owner)
 
     @property
     def vk_chat_configured(self) -> bool:
@@ -207,4 +251,34 @@ def load_settings() -> Settings:
         openai_max_tokens=_int("OPENAI_MAX_TOKENS", 900),
         llm_enabled=_bool("LLM_ENABLED", True),
         llm_daily_token_limit=_int("LLM_DAILY_TOKEN_LIMIT", 300_000),
+        embedding_base_url=_env("EMBEDDING_BASE_URL") or _env("OPENAI_BASE_URL", "https://api.aitunnel.ru/v1"),
+        embedding_api_key=_env("EMBEDDING_API_KEY") or _env("OPENAI_API_KEY"),
+        embedding_model=_env("EMBEDDING_MODEL", "text-embedding-3-large"),
+        embedding_dimensions=_int("EMBEDDING_DIMENSIONS", 1536),
+        embedding_batch_size=_int("EMBEDDING_BATCH_SIZE", 32),
+        embedding_daily_token_limit=_int("EMBEDDING_DAILY_TOKEN_LIMIT", 3_000_000),
+        embedding_timeout_seconds=_int("EMBEDDING_TIMEOUT_SECONDS", 60),
+        github_enabled=_bool("GITHUB_ENABLED", True),
+        github_api_url=_env("GITHUB_API_URL", "https://api.github.com").rstrip("/"),
+        github_owner=_env("GITHUB_OWNER", "markmus11012020-max"),
+        github_token=_env("GITHUB_TOKEN"),
+        github_repos=tuple(_json_list("GITHUB_REPOS", [])),
+        github_include_private=_bool("GITHUB_INCLUDE_PRIVATE", False),
+        github_include_forks=_bool("GITHUB_INCLUDE_FORKS", False),
+        github_include_archived=_bool("GITHUB_INCLUDE_ARCHIVED", False),
+        github_sync_interval_seconds=_int("GITHUB_SYNC_INTERVAL_SECONDS", 3600),
+        github_max_requests_per_hour=_int("GITHUB_MAX_REQUESTS_PER_HOUR", 55),
+        github_max_repo_mb=_int("GITHUB_MAX_REPO_MB", 25),
+        github_max_files_per_repo=_int("GITHUB_MAX_FILES_PER_REPO", 80),
+        github_max_chunks_per_repo=_int("GITHUB_MAX_CHUNKS_PER_REPO", 120),
+        github_max_file_kb=_int("GITHUB_MAX_FILE_KB", 200),
+        github_max_total_kb_per_repo=_int("GITHUB_MAX_TOTAL_KB_PER_REPO", 2048),
+        github_summary_enabled=_bool("GITHUB_SUMMARY_ENABLED", True),
+        github_summary_max_tokens=_int("GITHUB_SUMMARY_MAX_TOKENS", 900),
+        rag_top_k=_int("RAG_TOP_K", 8),
+        rag_final_projects=_int("RAG_FINAL_PROJECTS", 2),
+        rag_min_score=_float("RAG_MIN_SCORE", 0.25),
+        short_memory_ttl_days=_int("SHORT_MEMORY_TTL_DAYS", 7),
+        short_memory_max_messages=_int("SHORT_MEMORY_MAX_MESSAGES", 20),
+        user_memory_max_facts=_int("USER_MEMORY_MAX_FACTS", 50),
     )

@@ -32,15 +32,25 @@ monitor (раз в 10 минут)
   -> SQLite (orders, peers, deliveries)
   -> notifier: карточки в беседу VK (fan-out, rate limit, retry)
 
+GitHub sync (раз в час)
+  -> список публичных репозиториев (pushed_at diff)
+  -> tar.gz только изменённых
+  -> фильтр файлов, redaction секретов, чанки
+  -> карточка проекта (LLM) + эмбеддинги
+  -> SQLite: repo_sources, repo_documents (векторы)
+
 VK Long Poll (постоянно)
-  /start, /connect, /status, /last, /digest, /ask, /pause, /add, /remove
-  заявки -> кнопка «Добавить в беседу» у админа
+  /start, /connect, /status, /last, /digest, /ask, /draft
+  /repos, /remember, /memory, /forget, /pause, /add, /remove
+  «Черновик» -> векторный поиск по проектам -> отклик с примером
 
 HTTP :8080/healthz  -> docker healthcheck / внешний аптайм-монитор
 backup каждые 6 часов -> /data/backups (последние 8 копий)
 ```
 
-Один контейнер, три asyncio-задачи, SQLite в WAL-режиме с одним писателем.
+Один контейнер, четыре asyncio-задачи (мониторинг, VK, GitHub sync, backup),
+SQLite в WAL-режиме с одним писателем. Векторы лежат в той же SQLite, поэтому
+бэкап БД сохраняет и память проектов.
 
 ## Быстрый старт локально
 
@@ -50,17 +60,22 @@ python -m venv .venv
 Copy-Item .env.example .env
 # заполни VK_* и OPENAI_*, либо оставь пустым для dry-run
 .\.venv\Scripts\python -m pytest -q
+.\.venv\Scripts\python -m scripts.sync_repos --stats
+.\.venv\Scripts\python -m scripts.sync_repos
 .\.venv\Scripts\python -m app.main --once
 ```
 
 `--once` без `--send` всегда работает в dry-run: карточки печатаются в лог, в VK ничего
-не уходит. Локальная БД по умолчанию — `data/bot.db`.
+не уходит. Локальная БД по умолчанию — `data/bot.db`. Первый полный проход по GitHub
+лучше запустить вручную через `scripts.sync_repos`, чтобы видеть прогресс и ошибки;
+в рабочем режиме синхронизация идёт фоном при старте.
 
-Проверка провайдера ИИ и VK-токена:
+Проверка провайдера ИИ, VK-токена и GitHub-доступа:
 
 ```powershell
 .\.venv\Scripts\python -m scripts.check_llm
 .\.venv\Scripts\python -m scripts.check_vk
+.\.venv\Scripts\python -m scripts.check_github
 ```
 
 ## Настройка VK
@@ -103,6 +118,21 @@ Copy-Item .env.example .env
 | `OPENAI_API_KEY` | ключ провайдера |
 | `OPENAI_MODEL` | по умолчанию `deepseek-v4.1-flash-1017` |
 | `LLM_ENABLED`, `LLM_DAILY_TOKEN_LIMIT` | выключить ИИ / лимит токенов в сутки |
+| `EMBEDDING_MODEL`, `EMBEDDING_DIMENSIONS` | модель и размерность векторов, по умолчанию `text-embedding-3-large` / 1536 |
+| `EMBEDDING_API_KEY`, `EMBEDDING_BASE_URL` | необязательно; по умолчанию берутся из `OPENAI_*` |
+| `EMBEDDING_DAILY_TOKEN_LIMIT` | лимит токенов на индексацию и поиск |
+| `GITHUB_ENABLED` | включить фоновую синхронизацию |
+| `GITHUB_OWNER` | владелец репозиториев, по умолчанию `markmus11012020-max` |
+| `GITHUB_TOKEN` | fine-grained read-only токен; без него 60 запросов/час |
+| `GITHUB_REPOS` | пусто = все публичные; иначе `owner/repo,owner/repo2` |
+| `GITHUB_INCLUDE_PRIVATE`, `GITHUB_INCLUDE_FORKS`, `GITHUB_INCLUDE_ARCHIVED` | что включать в индекс; по умолчанию только свои публичные |
+| `GITHUB_SYNC_INTERVAL_SECONDS` | период синхронизации, по умолчанию 3600 |
+| `GITHUB_MAX_REQUESTS_PER_HOUR` | клиентский лимит GitHub, по умолчанию 55 (из 60 бесплатных) |
+| `GITHUB_MAX_REPO_MB`, `GITHUB_MAX_FILES_PER_REPO`, `GITHUB_MAX_CHUNKS_PER_REPO` | лимиты индексации |
+| `GITHUB_SUMMARY_ENABLED`, `GITHUB_SUMMARY_MAX_TOKENS` | карточка проекта через LLM и её размер |
+| `RAG_TOP_K`, `RAG_FINAL_PROJECTS`, `RAG_MIN_SCORE` | сколько кандидатов искать и сколько проектов упоминать |
+| `SHORT_MEMORY_TTL_DAYS`, `SHORT_MEMORY_MAX_MESSAGES` | срок жизни и размер краткосрочной памяти |
+| `USER_MEMORY_MAX_FACTS` | максимум долгосрочных пожеланий пользователя |
 
 Модель и base URL меняются только через env — код править не нужно. Любой
 OpenAI-совместимый провайдер подойдёт.
@@ -183,7 +213,15 @@ docker compose logs -f
 | `/status` | все | состояние, источники, расход токенов |
 | `/last 5` | все | последние заказы |
 | `/digest` | все | сводка за 24 часа (LLM) |
-| `/ask вопрос` | все | вопрос ИИ-ассистенту |
+| `/ask вопрос` | все | вопрос ИИ-ассистенту с учётом памяти |
+| `/draft 123 [Имя]` | все | черновик отклика; имя заказчика можно задать вручную |
+| `/repos` | все | состояние GitHub-базы проектов |
+| `/repos sync` | админ | принудительная синхронизация GitHub |
+| `/repos find запрос` | все | проверить векторный поиск по проектам |
+| `/remember текст` | все | сохранить пожелание к стилю откликов |
+| `/memory` | все | показать краткосрочную память и факты |
+| `/memory clear` | все | очистить историю диалога |
+| `/forget 3`, `/forget all` | все | удалить долгосрочные факты |
 | `/pause`, `/resume` | админ | пауза мониторинга |
 | `/add 12345`, `/remove 12345` | админ | состав беседы |
 | `/whoami` | все | user_id / peer_id / chat_id |
@@ -194,6 +232,60 @@ docker compose logs -f
 `PUBLIC_BASE_URL/go/<order_id>`, поэтому работает и для Kwork, который VK
 не пускает в кнопки напрямую. Редирект разрешён только для заказов из БД
 и доменов fl.ru / freelance.ru / kwork.ru.
+
+## Память и GitHub-проекты
+
+**Долгосрочная память** — это база публичных репозиториев плюс явные пожелания
+пользователя (`/remember`). Для каждого проекта хранится карточка (что это, стек,
+примеры применения), README и чанки кода. Векторы считаются через
+`text-embedding-3-large` (1536 измерений) и лежат в SQLite; при поиске они
+смешиваются с лексическим совпадением, чтобы находить и смысловые, и точные
+запросы вроде «Telegram bot Python».
+
+**Краткосрочная память** — последние сообщения пользователя и сгенерированные
+черновики. Она живёт `SHORT_MEMORY_TTL_DAYS` дней и обрезается до
+`SHORT_MEMORY_MAX_MESSAGES`. Поэтому можно написать «перепиши короче» — бот
+увидит предыдущий вариант.
+
+**Автообновление.** Раз в `GITHUB_SYNC_INTERVAL_SECONDS` бот получает список
+репозиториев, сравнивает `pushed_at` и индексирует только новые/изменённые.
+Новый репозиторий подхватывается автоматически; вручную — `/repos sync` или
+`python -m scripts.sync_repos`. Полезные флаги: `--full` — переиндексировать всё,
+`--repo owner/name` — только один репозиторий, `--list` и `--stats` — диагностика.
+Токен GitHub не обязателен, но без него лимит 60 запросов/час, а с ним — 5000/час.
+Клиент дополнительно режет себя до `GITHUB_MAX_REQUESTS_PER_HOUR=55`, оставляя запас.
+
+Токен: GitHub → Settings → Developer settings → Fine-grained tokens. Достаточно
+доступа **Public repositories (read-only)** и разрешения **Contents: Read-only**;
+для приватных репозиториев добавь их в область токена и поставь
+`GITHUB_INCLUDE_PRIVATE=true`. Положи значение в `GITHUB_TOKEN` в env платформы,
+не в код.
+
+**Безопасность.** `.env`, приватные ключи, сертификаты и бинарники не
+индексируются; токены и пароли в тексте вырезаются. Публичные репозитории всё
+равно отправляются провайдеру эмбеддингов и LLM для построения карточки —
+учитывай это, если в коде есть чувствительные данные.
+
+**Приветствие.** Имя заказчика извлекается из текста заказа и проверяется,
+что оно там действительно есть. Если имени нет — только `Здравствуйте!`.
+Итоговая строка всегда ставится кодом:
+
+```
+Иван, Здравствуйте!
+
+...
+```
+
+или
+
+```
+Здравствуйте!
+
+...
+```
+
+В личку вместе с черновиком приходит блок «Источники для проверки» — его не
+нужно копировать заказчику.
 
 ## Как работает отбор
 
@@ -214,18 +306,23 @@ docker compose logs -f
 ```
 app/
   config.py        настройки из env
-  db.py            SQLite: orders, peers, deliveries, kv, llm_cache
+  db.py            SQLite: orders, peers, deliveries, kv, llm_cache, память, repo_*
   filters.py       префильтр и правила
   textutil.py      нормализация, стемминг, бюджет, даты
-  llm.py           OpenAI-совместимый клиент (aitunnel)
+  llm.py           OpenAI-совместимый клиент + промпты RAG и откликов
+  embeddings.py    эмбеддинги, батчи, ретраи, дневной лимит
+  repo_memory.py   векторный + лексический поиск по проектам
+  github_sync.py   GitHub API, tar.gz, фильтрация, чанки, индексация
+  memory.py        краткосрочная память и долгосрочные пожелания
+  drafts.py        извлечение имени, приветствие, RAG-контекст
   monitor.py       цикл опроса и отбора
   notifier.py      карточки, клавиатура, fan-out
-  health.py        /healthz
+  health.py        /healthz + статистика памяти
   backup.py        ротация бэкапов SQLite
   telegram_probe.py проверка доступности Telegram Bot API
   vk/              client, longpoll, handlers
   parsers/         fl_ru, freelance_ru, kwork
-scripts/           check_llm, check_vk, check_telegram
+scripts/           check_llm, check_vk, check_github, check_telegram, sync_repos
 tests/             фикстуры и unit-тесты
 ```
 
@@ -238,4 +335,8 @@ tests/             фикстуры и unit-тесты
 - Бюджет «по договорённости» не отсекается: такие заказы может вытянуть LLM.
 - Автоотклик на биржах не делается (нарушает правила площадок): бот только готовит
   черновик, отправляешь ты.
+- GitHub-индекс обновляется опросом раз в час, а не мгновенно. Для мгновенного
+  обновления позже можно добавить webhook; polling останется страховкой.
+- Репозитории больше `GITHUB_MAX_REPO_MB` и файлы больше `GITHUB_MAX_FILE_KB`
+  пропускаются, чтобы не раздувать БД и не тратить токены.
 - Секреты живут только в env платформы. Не коммить `.env`.

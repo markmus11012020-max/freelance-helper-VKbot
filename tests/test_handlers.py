@@ -7,7 +7,9 @@ import pytest
 
 from app.config import load_settings
 from app.db import Database
+from app.drafts import DraftResult
 from app.llm import LlmClient
+from app.models import ParsedOrder
 from app.notifier import Notifier
 from app.vk.handlers import BotHandlers
 
@@ -112,3 +114,60 @@ async def test_non_admin_cannot_add_members(env) -> None:
     await handlers.handle_update(message(USER_ID, USER_ID, "/add 3"))
     assert vk.added == []
     assert any("Только админ" in item["message"] for item in vk.sent)
+
+
+class FakeDrafts:
+    async def generate(self, order, **kwargs):
+        return DraftResult(
+            text="Анна, Здравствуйте!\n\nСделаю бота на Python.",
+            client_name="Анна",
+            sources=[
+                {
+                    "repo_full_name": "owner/bot",
+                    "url": "https://github.com/owner/bot",
+                }
+            ],
+        )
+
+
+class FakeLlmAvailable:
+    available = True
+
+
+async def test_draft_callback_sends_greeting_and_sources(env) -> None:
+    db, vk, handlers = env
+    order_id, _ = await db.upsert_order(
+        ParsedOrder(
+            source="fl.ru",
+            external_id="draft-1",
+            url="https://www.fl.ru/projects/draft-1/x.html",
+            title="Нужен Telegram-бот",
+            description="Здравствуйте, меня зовут Анна.",
+        )
+    )
+    handlers.llm = FakeLlmAvailable()  # type: ignore[assignment]
+    handlers.drafts = FakeDrafts()  # type: ignore[assignment]
+
+    await handlers.handle_update(
+        {
+            "type": "message_event",
+            "object": {
+                "event_id": "evt-draft",
+                "user_id": USER_ID,
+                "peer_id": USER_ID,
+                "event_data": {
+                    "payload": json.dumps({"cmd": "draft", "order_id": order_id})
+                },
+            },
+        }
+    )
+
+    draft_messages = [
+        item for item in vk.sent
+        if item["peer_id"] == USER_ID and "Черновик отклика" in item["message"]
+    ]
+    assert draft_messages
+    text = draft_messages[-1]["message"]
+    assert "Анна, Здравствуйте!" in text
+    assert "Источники для проверки" in text
+    assert "owner/bot" in text
