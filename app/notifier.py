@@ -81,7 +81,7 @@ class Notifier:
         return truncate("\n".join(lines), 3900, "…")
 
     @staticmethod
-    def order_keyboard(row: dict[str, Any]) -> dict[str, Any] | None:
+    def order_keyboard(row: dict[str, Any], *, include_link: bool = True) -> dict[str, Any] | None:
         url = row.get("url") or ""
         order_id = row.get("order_id") or row.get("id")
         buttons: list[dict[str, Any]] = []
@@ -95,7 +95,7 @@ class Notifier:
                     }
                 }
             )
-        if url:
+        if url and include_link:
             buttons.append(
                 {
                     "action": {
@@ -112,12 +112,32 @@ class Notifier:
     async def send_order(self, row: dict[str, Any], peer_id: int) -> None:
         text = self.build_card(row)
         order_id = int(row.get("order_id") or row.get("id") or 0)
-        await self.vk.send_message(
-            peer_id,
-            text,
-            keyboard=self.order_keyboard(row),
-            random_id=VkClient.random_id_for(order_id, peer_id),
-        )
+        random_id = VkClient.random_id_for(order_id, peer_id)
+        try:
+            await self.vk.send_message(
+                peer_id,
+                text,
+                keyboard=self.order_keyboard(row),
+                random_id=random_id,
+            )
+        except VkApiError as exc:
+            # VK rejects open_link buttons for some domains (e.g. kwork.ru)
+            # with error 911. The URL is already in the card text, so retry
+            # with the callback button only.
+            if exc.code == 911 and "link" in exc.message.lower():
+                log.info(
+                    "VK rejected link button for order %s (%s), retrying without link",
+                    order_id,
+                    exc.message,
+                )
+                await self.vk.send_message(
+                    peer_id,
+                    text,
+                    keyboard=self.order_keyboard(row, include_link=False),
+                    random_id=random_id,
+                )
+                return
+            raise
 
     async def deliver_pending(self, limit: int = 30) -> int:
         if self.settings.dry_run or not self.settings.vk_configured:

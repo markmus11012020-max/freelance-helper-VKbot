@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from dataclasses import replace
+
 from app.config import load_settings
 from app.llm import LlmClient, _strip_json
 from app.notifier import Notifier
@@ -25,7 +27,7 @@ def test_strip_json_handles_markdown_fence() -> None:
 
 
 def test_llm_disabled_without_key() -> None:
-    settings = load_settings()
+    settings = replace(load_settings(), openai_api_key="", llm_enabled=True)
     assert not LlmClient(settings, DummyDb()).available  # type: ignore[arg-type]
 
 

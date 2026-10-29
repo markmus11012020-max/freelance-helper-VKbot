@@ -65,16 +65,17 @@ DEFAULT_STOPWORDS = [
     "продвижение", "дизайн", "верстка", "фронтенд", "frontend", "крипта",
     "смарт-контракт", "solidity", "3d", "монтаж", "озвучка", "перевод",
     "копирайт", "статьи", "смм", "таргет", "бухгалтер", "юридическ",
-    "курьер", "оператор", "инфографика", "логотип", "нейминг", "презентац",
-    "тестирование", "тестировщик", "qa", "аудит", "вакансия", "резюме", "оклад",
-    "полная занятость", "отзывы", "обзвон", "холодн", "продаж", "звонк",
+    "курьер", "инфографика", "логотип", "нейминг", "презентац",
+    "тестирование", "тестировщик", "qa", "аудит", "вакансия", "оклад",
+    "полная занятость", "отзывы", "холодн", "менеджер по продажам",
+    "скрипт продаж", "оператор колл", "пришлите резюме", "требуется резюме",
 ]
 
 
 @dataclass(frozen=True)
 class Settings:
     # VK
-    vk_group_token: str = ""
+    vk_group_token: str = field(default="", repr=False)
     vk_group_id: int = 0
     vk_api_version: str = "5.199"
     vk_chat_peer_id: int = 0
@@ -83,10 +84,10 @@ class Settings:
 
     # Telegram (probe now, full channel later)
     telegram_enabled: bool = True
-    telegram_bot_token: str = ""
+    telegram_bot_token: str = field(default="", repr=False)
     telegram_admin_user_ids: frozenset[int] = field(default_factory=frozenset)
     telegram_chat_id: int = 0
-    telegram_proxy: str = ""
+    telegram_proxy: str = field(default="", repr=False)
     telegram_api_url: str = "https://api.telegram.org"
     telegram_poll_timeout: int = 25
 
@@ -109,18 +110,18 @@ class Settings:
     freelance_ru_pages: int = 2
     kwork_enabled: bool = True
     kwork_url: str = "https://kwork.ru/projects"
-    kwork_pages: int = 2
+    kwork_pages: int = 3
 
     # Selection
     keywords: tuple[str, ...] = tuple(DEFAULT_KEYWORDS)
     stopwords: tuple[str, ...] = tuple(DEFAULT_STOPWORDS)
-    min_score: int = 48
+    min_score: int = 45
     max_orders_per_cycle: int = 10
     budget_min_rub: int = 15000
 
     # LLM (OpenAI-compatible, e.g. aitunnel)
     openai_base_url: str = "https://api.aitunnel.ru/v1"
-    openai_api_key: str = ""
+    openai_api_key: str = field(default="", repr=False)
     openai_model: str = "deepseek-v4.1-flash-1017"
     openai_temperature: float = 0.3
     openai_max_tokens: int = 900
@@ -191,10 +192,10 @@ def load_settings() -> Settings:
         freelance_ru_pages=_int("FREELANCE_RU_PAGES", 2),
         kwork_enabled=_bool("KWORK_ENABLED", True),
         kwork_url=_env("KWORK_URL", "https://kwork.ru/projects"),
-        kwork_pages=_int("KWORK_PAGES", 2),
+        kwork_pages=_int("KWORK_PAGES", 3),
         keywords=tuple(_json_list("KEYWORDS_JSON", DEFAULT_KEYWORDS)),
         stopwords=tuple(_json_list("STOPWORDS_JSON", DEFAULT_STOPWORDS)),
-        min_score=_int("MIN_SCORE", 48),
+        min_score=_int("MIN_SCORE", 45),
         max_orders_per_cycle=_int("MAX_ORDERS_PER_CYCLE", 10),
         budget_min_rub=_int("BUDGET_MIN_RUB", 15000),
         openai_base_url=_env("OPENAI_BASE_URL", "https://api.aitunnel.ru/v1"),

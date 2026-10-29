@@ -237,6 +237,20 @@ class Database:
                 ).fetchall()
         return [dict(row) for row in rows]
 
+    async def orders_for_backfill(self, limit: int = 10, min_score: int = 45) -> list[dict[str, Any]]:
+        async with self._lock:
+            assert self._conn is not None
+            rows = self._conn.execute(
+                """
+                SELECT * FROM orders
+                WHERE score >= ?
+                ORDER BY COALESCE(published_at, fetched_at) DESC, id DESC
+                LIMIT ?
+                """,
+                (min_score, limit),
+            ).fetchall()
+        return [dict(row) for row in rows]
+
     async def orders_since(self, since_iso: str, min_score: int = 0) -> list[dict[str, Any]]:
         async with self._lock:
             assert self._conn is not None

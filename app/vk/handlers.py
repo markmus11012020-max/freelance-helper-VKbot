@@ -190,13 +190,14 @@ class BotHandlers:
         await self.db.upsert_peer(
             peer_id, kind="chat", user_id=0, role="chat", status="active", title=title, added_by=from_id
         )
-        recent = await self.db.recent_orders(limit=10, min_score=self.settings.min_score)
-        for order in recent[:5]:
+        recent = await self.db.orders_for_backfill(limit=10, min_score=self.settings.min_score)
+        for order in recent:
             await self.db.enqueue_delivery(int(order["id"]), peer_id)
+        suffix = f"\nОтправляю последних заказов: {len(recent)}." if recent else ""
         await self._reply(
             peer_id,
             f"Беседа подключена: {title or 'без названия'}\nchat_id: {chat_id}\n"
-            "Сюда будут приходить отобранные заказы.",
+            f"Сюда будут приходить отобранные заказы.{suffix}",
         )
         if recent:
             await self.notifier.deliver_pending()

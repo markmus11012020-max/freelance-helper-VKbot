@@ -31,14 +31,19 @@ async def main() -> int:
         response = await client.chat.completions.create(
             model=settings.openai_model,
             messages=[{"role": "user", "content": "Ответь одним словом: работает"}],
-            max_tokens=20,
+            max_tokens=200,
             temperature=0,
         )
         usage = response.usage
-        print("answer:   ", (response.choices[0].message.content or "").strip())
+        message = response.choices[0].message
+        answer = (message.content or "").strip()
+        reasoning = getattr(message, "reasoning", None) or ""
+        print("answer:   ", answer or "<empty>")
+        if not answer and reasoning:
+            print("reasoning:", str(reasoning)[:200])
         if usage is not None:
             print(f"tokens:    prompt={usage.prompt_tokens} completion={usage.completion_tokens}")
-        return 0
+        return 0 if answer else 1
     except Exception as exc:
         print(f"ERROR: {type(exc).__name__}: {exc}", file=sys.stderr)
         return 1
