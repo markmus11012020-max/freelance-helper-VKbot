@@ -132,7 +132,7 @@ class Settings:
     # Embeddings / vector memory
     embedding_base_url: str = ""
     embedding_api_key: str = field(default="", repr=False)
-    embedding_model: str = "text-embedding-3-large"
+    embedding_model: str = "qwen3-embedding-8b"
     embedding_dimensions: int = 1536
     embedding_batch_size: int = 32
     embedding_daily_token_limit: int = 3_000_000
@@ -253,7 +253,7 @@ def load_settings() -> Settings:
         llm_daily_token_limit=_int("LLM_DAILY_TOKEN_LIMIT", 300_000),
         embedding_base_url=_env("EMBEDDING_BASE_URL") or _env("OPENAI_BASE_URL", "https://api.aitunnel.ru/v1"),
         embedding_api_key=_env("EMBEDDING_API_KEY") or _env("OPENAI_API_KEY"),
-        embedding_model=_env("EMBEDDING_MODEL", "text-embedding-3-large"),
+        embedding_model=_env("EMBEDDING_MODEL", "qwen3-embedding-8b"),
         embedding_dimensions=_int("EMBEDDING_DIMENSIONS", 1536),
         embedding_batch_size=_int("EMBEDDING_BATCH_SIZE", 32),
         embedding_daily_token_limit=_int("EMBEDDING_DAILY_TOKEN_LIMIT", 3_000_000),

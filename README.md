@@ -118,7 +118,7 @@ Copy-Item .env.example .env
 | `OPENAI_API_KEY` | ключ провайдера |
 | `OPENAI_MODEL` | по умолчанию `deepseek-v4.1-flash-1017` |
 | `LLM_ENABLED`, `LLM_DAILY_TOKEN_LIMIT` | выключить ИИ / лимит токенов в сутки |
-| `EMBEDDING_MODEL`, `EMBEDDING_DIMENSIONS` | модель и размерность векторов, по умолчанию `text-embedding-3-large` / 1536 |
+| `EMBEDDING_MODEL`, `EMBEDDING_DIMENSIONS` | модель и размерность векторов, по умолчанию `qwen3-embedding-8b` / 1536 |
 | `EMBEDDING_API_KEY`, `EMBEDDING_BASE_URL` | необязательно; по умолчанию берутся из `OPENAI_*` |
 | `EMBEDDING_DAILY_TOKEN_LIMIT` | лимит токенов на индексацию и поиск |
 | `GITHUB_ENABLED` | включить фоновую синхронизацию |
@@ -238,7 +238,7 @@ docker compose logs -f
 **Долгосрочная память** — это база публичных репозиториев плюс явные пожелания
 пользователя (`/remember`). Для каждого проекта хранится карточка (что это, стек,
 примеры применения), README и чанки кода. Векторы считаются через
-`text-embedding-3-large` (1536 измерений) и лежат в SQLite; при поиске они
+`qwen3-embedding-8b` (1536 измерений) и лежат в SQLite; при поиске они
 смешиваются с лексическим совпадением, чтобы находить и смысловые, и точные
 запросы вроде «Telegram bot Python».
 
