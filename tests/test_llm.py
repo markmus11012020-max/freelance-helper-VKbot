@@ -37,7 +37,8 @@ def test_order_keyboard_uses_order_id_for_delivery_rows() -> None:
         "order_id": 7,
         "url": "https://example.com/order",
     }
-    keyboard = Notifier.order_keyboard(row)
+    notifier = Notifier(load_settings(), DummyDb(), None)  # type: ignore[arg-type]
+    keyboard = notifier.order_keyboard(row)
     assert keyboard is not None
     payload = keyboard["buttons"][0][0]["action"]["payload"]
     assert '"order_id": 7' in payload

@@ -8,6 +8,8 @@ services:
       HEALTH_PORT: 8080
     volumes:
       - ./data:/data
+    ports:
+      - "127.0.0.1:8080:8080"
     restart: unless-stopped
     healthcheck:
       test:
@@ -24,3 +26,16 @@ services:
       options:
         max-size: "10m"
         max-file: "3"
+
+  caddy:
+    image: caddy:2-alpine
+    network_mode: host
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    restart: unless-stopped
+
+volumes:
+  caddy_data:
+  caddy_config:

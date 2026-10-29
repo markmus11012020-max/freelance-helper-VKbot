@@ -100,6 +100,7 @@ class Settings:
     health_port: int = 8080
     dry_run: bool = False
     tz: str = "Europe/Moscow"
+    public_base_url: str = ""
 
     # Sources
     fl_ru_enabled: bool = True
@@ -184,6 +185,7 @@ def load_settings() -> Settings:
         health_port=_int("HEALTH_PORT", 8080),
         dry_run=_bool("DRY_RUN", False),
         tz=_env("TZ", "Europe/Moscow") or "Europe/Moscow",
+        public_base_url=_env("PUBLIC_BASE_URL").rstrip("/"),
         fl_ru_enabled=_bool("FL_RU_ENABLED", True),
         fl_ru_rss_url=_env("FL_RU_RSS_URL", "https://www.fl.ru/rss/all.xml"),
         fl_ru_max_detail_fetch=_int("FL_RU_MAX_DETAIL_FETCH", 8),

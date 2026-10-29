@@ -80,9 +80,15 @@ class Notifier:
             lines.extend(["", f"🔗 {url}"])
         return truncate("\n".join(lines), 3900, "…")
 
-    @staticmethod
-    def order_keyboard(row: dict[str, Any], *, include_link: bool = True) -> dict[str, Any] | None:
-        url = row.get("url") or ""
+    def _link_for(self, row: dict[str, Any]) -> str:
+        url = str(row.get("url") or "")
+        order_id = row.get("order_id") or row.get("id")
+        if self.settings.public_base_url and order_id:
+            return f"{self.settings.public_base_url}/go/{int(order_id)}"
+        return url
+
+    def order_keyboard(self, row: dict[str, Any], *, include_link: bool = True) -> dict[str, Any] | None:
+        url = self._link_for(row)
         order_id = row.get("order_id") or row.get("id")
         buttons: list[dict[str, Any]] = []
         if order_id:
@@ -90,7 +96,7 @@ class Notifier:
                 {
                     "action": {
                         "type": "callback",
-                        "label": "✍️ Отклик",
+                        "label": "✍️ Черновик",
                         "payload": json.dumps({"cmd": "draft", "order_id": int(order_id)}),
                     }
                 }
@@ -100,7 +106,7 @@ class Notifier:
                 {
                     "action": {
                         "type": "open_link",
-                        "label": "🔗 Открыть",
+                        "label": "🚀 Откликнуться",
                         "link": url,
                     }
                 }

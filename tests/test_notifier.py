@@ -50,9 +50,20 @@ def test_dry_run_delivery_is_noop() -> None:
 
 def test_order_keyboard_can_omit_link() -> None:
     row = {"order_id": 7, "url": "https://kwork.ru/projects/1/view"}
-    keyboard = Notifier.order_keyboard(row, include_link=False)
+    notifier = Notifier(load_settings(), DummyDb(), None)  # type: ignore[arg-type]
+    keyboard = notifier.order_keyboard(row, include_link=False)
     assert keyboard is not None
     assert len(keyboard["buttons"][0]) == 1
+
+
+def test_order_keyboard_uses_public_redirect() -> None:
+    settings = replace(load_settings(), public_base_url="https://example.org")
+    notifier = Notifier(settings, DummyDb(), None)  # type: ignore[arg-type]
+    row = {"order_id": 7, "url": "https://kwork.ru/projects/1/view"}
+    keyboard = notifier.order_keyboard(row)
+    assert keyboard is not None
+    link = keyboard["buttons"][0][1]["action"]["link"]
+    assert link == "https://example.org/go/7"
 
 
 def test_send_order_retries_without_link_on_vk_911() -> None:

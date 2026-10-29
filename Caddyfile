@@ -1,0 +1,4 @@
+94-228-173-244.sslip.io {
+    encode gzip
+    reverse_proxy 127.0.0.1:8080
+}
