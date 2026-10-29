@@ -91,6 +91,7 @@ Copy-Item .env.example .env
 | `VK_ADMIN_USER_ID` / `VK_ADMIN_USER_IDS` | id админов через запятую |
 | `VK_CHAT_PEER_ID` | необязательно: `2000000000 + chat_id`, если не хочешь `/connect` |
 | `DATABASE_PATH` | путь к SQLite (в Docker/Amvera `/data/bot.db`) |
+| `PUBLIC_BASE_URL` | публичный HTTPS-адрес для кнопки «Откликнуться» (`/go/<order_id>`); пусто = прямые ссылки |
 | `SCAN_INTERVAL_SECONDS` | период опроса бирж, по умолчанию 600 |
 | `DRY_RUN=1` | не отправлять в VK |
 | `FL_RU_ENABLED`, `FREELANCE_RU_ENABLED`, `KWORK_ENABLED` | включение источников |
