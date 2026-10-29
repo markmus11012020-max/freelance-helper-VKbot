@@ -1,9 +1,11 @@
 from __future__ import annotations
 
+import json
 from pathlib import Path
 
 from app.parsers.fl_ru import extract_budget, parse_rss
 from app.parsers.freelance_ru import parse_listing
+from app.parsers.kwork import parse_projects
 
 FIXTURES = Path(__file__).parent / "fixtures"
 
@@ -34,4 +36,15 @@ def test_parse_freelance_listing() -> None:
     assert all(order.external_id.isdigit() for order in orders)
     assert all(order.url.startswith("https://freelance.ru/task/view/") for order in orders)
     assert any(order.budget_min and order.budget_min >= 10_000 for order in orders)
+    assert any(order.published_at is not None for order in orders)
+
+
+def test_parse_kwork_projects() -> None:
+    payload = json.loads((FIXTURES / "kwork_projects.json").read_text(encoding="utf-8"))
+    orders = parse_projects(payload)
+    assert len(orders) >= 10
+    assert all(order.source == "kwork.ru" for order in orders)
+    assert all(order.external_id.isdigit() for order in orders)
+    assert all(order.url.endswith("/view") for order in orders)
+    assert any(order.budget_min and order.budget_min > 0 for order in orders)
     assert any(order.published_at is not None for order in orders)

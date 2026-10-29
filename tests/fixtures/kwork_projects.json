@@ -1,0 +1,2564 @@
+{
+ "success": true,
+ "data": {
+  "wants_20891_data": [],
+  "pagination": {
+   "current_page": 1,
+   "data": [
+    {
+     "userAlreadyWork": null,
+     "dateView": null,
+     "id": 3270202,
+     "status": "active",
+     "wantDates": {
+      "dateCreate": "29 октября",
+      "dateActive": "29 октября",
+      "dateExpire": "30 октября",
+      "dateReject": ""
+     },
+     "isWantActive": true,
+     "isWantArchive": false,
+     "altStatusHint": {
+      "color": "blue",
+      "title": "Сбор предложений"
+     },
+     "getReviewCanChange": false,
+     "wantGetSumOrderCount": 0,
+     "projectReviewType": null,
+     "wantUserGetProfileUrl": "https://kwork.ru/user/opencast",
+     "possiblePriceLimit": 500,
+     "getWantsActiveCount": "1",
+     "isHigherPrice": false,
+     "category_id": "81",
+     "description": "Требуется QA-тестировщик для комплексного тестирования веб-сервиса.\r\nНеобходимо провести полную проверку работоспособности сайта перед публичным запуском.\r\nПроверить главную страницу (лендинг), регистрацию и авторизацию через все доступные способы, работу личного кабинета и разделов.\r\nПротестировать весь функционал: загрузку фотографий, генерацию изображений и видео, настройки, переключатели, кнопки, переходы, сохранение проектов, сортировку, скачивание результатов, баланс токенов и обработку ошибок.\r\nПроверить работу в разных браузерах (Chrome, Firefox, Edge, Яндекс Браузер). Личный кабинет тестируется только на ПК, мобильная версия - только для лендинга.\r\nНужен подробный отчёт со всеми найденными ошибками, скриншотами, описанием проблем и рекомендациями по улучшению. Также требуется оценка удобства сервиса глазами обычного пользователя и готовности сайта к запуску.\r\nРеальные платежи не проводятся, тестовые токены предоставляются.\r\nЗа найденные критические ошибки предусмотрен дополнительный бонус.",
+     "files": [],
+     "kwork_count": 0,
+     "lang": "ru",
+     "name": "Полное функциональное и UX-тестирование веб-сервиса",
+     "max_days": "10",
+     "priceLimit": "500.00",
+     "user": {
+      "USERID": 1476811,
+      "username": "opencast",
+      "profilepicture": "noprofilepicture.gif",
+      "profilePictureSrcSet": "",
+      "badges": [],
+      "data": {
+       "wants_count": "6",
+       "wants_hired_percent": "0"
+      }
+     },
+     "date_active": "2026-10-29 12:29:43",
+     "date_expire": "2026-10-30 12:29:43",
+     "date_create": "2026-10-29 12:25:15",
+     "views_dirty": "46",
+     "isUserWant": false,
+     "alreadyWork": null,
+     "isOtherActiveWantsExceptByWantId": false,
+     "timeLeft": "23 ч. 57 мин.",
+     "currentUserReviewType": null,
+     "hasPortfolioAvailable": false,
+     "isNeural": false,
+     "orderManagerStatusDone": 5,
+     "availableDurations": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      10,
+      14,
+      21,
+      30,
+      45,
+      60,
+      75,
+      90
+     ],
+     "categoryLinksIdRu": 59,
+     "getPriceThreshold": 4000
+    },
+    {
+     "userAlreadyWork": null,
+     "dateView": null,
+     "id": 3270203,
+     "status": "active",
+     "wantDates": {
+      "dateCreate": "29 октября",
+      "dateActive": "29 октября",
+      "dateExpire": "30 октября",
+      "dateReject": ""
+     },
+     "isWantActive": true,
+     "isWantArchive": false,
+     "altStatusHint": {
+      "color": "blue",
+      "title": "Сбор предложений"
+     },
+     "getReviewCanChange": false,
+     "wantGetSumOrderCount": 0,
+     "projectReviewType": null,
+     "wantUserGetProfileUrl": "https://kwork.ru/user/ruslan1365",
+     "possiblePriceLimit": 6000,
+     "getWantsActiveCount": "1",
+     "isHigherPrice": true,
+     "category_id": "250",
+     "description": "Требуется опытный 3D-моделлер для создания высокоточной цифровой модели пресс-формы (матрицы) с художественным барельефом. Модель будет использоваться на CNC-станке (фрезеровка из POM / полиамида) для формованных изделий.\r\nЧто нужно сделать:\r\nРазработать объемную 3D-модель по готовому фото-эталону и эскизу (сложный художественный рельеф с перепадом высот).\r\nГрамотно спроектировать геометрию с учетом технологических требований фрезеровки: плавные радиусы скругления во впадинах, отсутствие обратных углов (поднутрений) и обязательные уклоны стенок для легкого извлечения готового продукта из матрицы.\r\nОбеспечить четкое зонирование: крупные выпуклые элементы и глубокие, широкие разделительные канавки без мелких &laquo;слепых&raquo; щелей.",
+     "files": [],
+     "kwork_count": 0,
+     "lang": "ru",
+     "name": "Разработка 3D-модели рельефного изделия для фрезеровки",
+     "max_days": "10",
+     "priceLimit": "2000.00",
+     "user": {
+      "USERID": 7742042,
+      "username": "Ruslan1365",
+      "profilepicture": "07/7742042-8.jpg",
+      "profilePictureSrcSet": "https://cdn-edge.kwork.ru/files/avatar/big/07/7742042-8.jpg?ver=1740760336 1x, https://cdn-edge.kwork.ru/files/avatar/big_r/07/7742042-8.jpg?ver=1740760336 2x",
+      "badges": [
+       {
+        "id": 1578896,
+        "user_id": "7742042",
+        "badge_id": "15",
+        "date_create": "2024-03-21 11:07:10",
+        "badge": {
+         "id": 15,
+         "title": "Опытный покупатель",
+         "description": "Сделано более 20 покупок",
+         "super_title": "Опытный суперпокупатель",
+         "super_description": "Сделано более 20 покупок и не менее 12 покупок за последние 3 месяца.",
+         "payer_level": 3,
+         "is_super_payer": false,
+         "sort": "1"
+        }
+       }
+      ],
+      "data": {
+       "wants_count": "12",
+       "wants_hired_percent": "83"
+      }
+     },
+     "date_active": "2026-10-29 12:25:48",
+     "date_expire": "2026-10-30 12:25:48",
+     "date_create": "2026-10-29 12:25:48",
+     "views_dirty": "57",
+     "isUserWant": false,
+     "alreadyWork": null,
+     "isOtherActiveWantsExceptByWantId": false,
+     "timeLeft": "23 ч. 53 мин.",
+     "currentUserReviewType": null,
+     "hasPortfolioAvailable": true,
+     "isNeural": false,
+     "orderManagerStatusDone": 5,
+     "availableDurations": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      10,
+      14,
+      21,
+      30,
+      45,
+      60,
+      75,
+      90
+     ],
+     "categoryLinksIdRu": 59,
+     "getPriceThreshold": 4000
+    },
+    {
+     "userAlreadyWork": null,
+     "dateView": null,
+     "id": 3270199,
+     "status": "active",
+     "wantDates": {
+      "dateCreate": "29 октября",
+      "dateActive": "29 октября",
+      "dateExpire": "31 октября",
+      "dateReject": ""
+     },
+     "isWantActive": true,
+     "isWantArchive": false,
+     "altStatusHint": {
+      "color": "blue",
+      "title": "Сбор предложений"
+     },
+     "getReviewCanChange": false,
+     "wantGetSumOrderCount": 0,
+     "projectReviewType": null,
+     "wantUserGetProfileUrl": "https://kwork.ru/user/stroisnab2007",
+     "possiblePriceLimit": 15000,
+     "getWantsActiveCount": "1",
+     "isHigherPrice": true,
+     "category_id": "24",
+     "description": "Дизайн веб-платформы услуг в Figma\r\nИщем дизайнера интерфейсов для веб-платформы: заказчики размещают заказы, проверенные специалисты берут их в работу. Оплата через безопасную сделку, ИИ-помощник для заявок, команды специалистов, торги.\r\nЕсть подробное описание логики, логотип и фирменные цвета. Интерфейс проектируем с нуля.\r\nЧто сделать:\r\n&mdash; проектирование: сценарии всех ролей, карта экранов, схемы экранов (wireframes);\r\n&mdash; стиль и дизайн-система: цвета, шрифты, иконки, компоненты со всеми состояниями, светлая и тёмная тема;\r\n&mdash; около 85&ndash;90 экранов: вход, кабинеты заказчика и специалиста, админка, публичный сайт;\r\n&mdash; адаптив: телефон 360 px, планшет 768&ndash;1024 px, компьютер 1280 px;\r\n&mdash; шаблоны писем и авторский надзор за вёрсткой;\r\n&mdash; позже, отдельным этапом, мобильное приложение (25&ndash;30 экранов).\r\nТребования: Figma, компоненты с вариантами, Auto Layout, токены, доступность WCAG AA, шрифты и иконки с коммерческой лицензией.\r\nРазработка уже идёт, поэтому макеты нужны поэтапно, на шаг впереди неё. NDA, передача прав по актам, оплата по этапам после приёмки, два круга правок на этап.\r\nВ отклике пришлите портфолио со сложными веб-сервисами (кабинеты, админки), оценку по этапам (часы, стоимость, сроки), сколько часов в неделю готовы уделять и с какой даты можете начать. Полное задание &mdash; во вложении.",
+     "files": [
+      {
+       "FID": 403854521,
+       "USERID": "16961627",
+       "type_entity": 54,
+       "entity_id": "3270199",
+       "fname": "Zadanie_dizaineru.docx",
+       "s": "85/bc/ba/24b616d3a1",
+       "size": 12082,
+       "time": "1793265575",
+       "lang": "ru",
+       "status": "active",
+       "storage": "s3",
+       "miniature_status": "none",
+       "miniature_creating_attempts": "0",
+       "permanent": "0",
+       "mime_type_id": "16",
+       "sort_index": "0",
+       "url": "https://kwork.ru/files/uploaded/85/bc/ba/24b616d3a1/Zadanie_dizaineru.docx",
+       "file_image_representation": null
+      }
+     ],
+     "kwork_count": 1,
+     "lang": "ru",
+     "name": "UX/UI-дизайн платформы услуг в Figma с нуля",
+     "max_days": "10",
+     "priceLimit": "5000.00",
+     "user": {
+      "USERID": 16961627,
+      "username": "stroisnab2007",
+      "profilepicture": "10/16961627-4.jpg",
+      "profilePictureSrcSet": "https://cdn-edge.kwork.ru/files/avatar/big/10/16961627-4.jpg?ver=1788967135 1x, https://cdn-edge.kwork.ru/files/avatar/big_r/10/16961627-4.jpg?ver=1788967135 2x",
+      "badges": [
+       {
+        "id": 2011207,
+        "user_id": "16961627",
+        "badge_id": "17",
+        "date_create": "2026-03-12 04:21:50",
+        "badge": {
+         "id": 17,
+         "title": "Очень мощный покупатель",
+         "description": "Сделано более 100 покупок",
+         "super_title": "Очень мощный суперпокупатель",
+         "super_description": "Сделано более 100 покупок и не менее 12 покупок за последние 3 месяца.",
+         "payer_level": 5,
+         "is_super_payer": false,
+         "sort": "1"
+        }
+       },
+       {
+        "id": 1872015,
+        "user_id": "16961627",
+        "badge_id": "23",
+        "date_create": "2025-09-12 03:39:13",
+        "badge": {
+         "id": 23,
+         "title": "Суперкомментатор",
+         "description": "За написание подробных отзывов",
+         "super_title": "",
+         "super_description": null,
+         "payer_level": null,
+         "is_super_payer": false,
+         "sort": "1"
+        }
+       }
+      ],
+      "data": {
+       "wants_count": "36",
+       "wants_hired_percent": "96"
+      }
+     },
+     "date_active": "2026-10-29 12:24:25",
+     "date_expire": "2026-10-31 12:19:40",
+     "date_create": "2026-10-29 12:19:40",
+     "views_dirty": "93",
+     "isUserWant": false,
+     "alreadyWork": null,
+     "isOtherActiveWantsExceptByWantId": false,
+     "timeLeft": "1 д. 23 ч.",
+     "currentUserReviewType": null,
+     "hasPortfolioAvailable": true,
+     "isNeural": false,
+     "orderManagerStatusDone": 5,
+     "availableDurations": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      10,
+      14,
+      21,
+      30,
+      45,
+      60,
+      75,
+      90
+     ],
+     "categoryLinksIdRu": 59,
+     "getPriceThreshold": 4000
+    },
+    {
+     "userAlreadyWork": null,
+     "dateView": null,
+     "id": 3270201,
+     "status": "active",
+     "wantDates": {
+      "dateCreate": "29 октября",
+      "dateActive": "29 октября",
+      "dateExpire": "30 октября",
+      "dateReject": ""
+     },
+     "isWantActive": true,
+     "isWantArchive": false,
+     "altStatusHint": {
+      "color": "blue",
+      "title": "Сбор предложений"
+     },
+     "getReviewCanChange": false,
+     "wantGetSumOrderCount": 0,
+     "projectReviewType": null,
+     "wantUserGetProfileUrl": "https://kwork.ru/user/klarius",
+     "possiblePriceLimit": 500,
+     "getWantsActiveCount": "1",
+     "isHigherPrice": false,
+     "category_id": "71",
+     "description": "1. Взять топ 10 результатов из Яндекс Директа по ключевым словам (гео: Москва):\r\nсертификация высоковольтного оборудования\r\nиспытания высоковольтного оборудования\r\nсертификат тртс 032\r\nсертифкат тртс 004\r\nсертификат тртс 020\r\nаттестация россети\r\n2. По каждому из ключевых слов получить 5 уникальных лидеров - сайтов\r\n3. Выгрузить семантику и тексты объявлений по каждому\r\nТребования: в общей сложности в отчете должна быть семантика и тексты объявлений не менее чем по 30 сайтам (и не менее 5 сайтов на каждый ключ). Если по каким то ключам сайты пересекаются, включите тогда данные по какому нибудь домену за пределами топ 5",
+     "files": [],
+     "kwork_count": 0,
+     "lang": "ru",
+     "name": "Анализ по Keys.so",
+     "max_days": "10",
+     "priceLimit": "500.00",
+     "user": {
+      "USERID": 1304095,
+      "username": "Klarius",
+      "profilepicture": "58/1304095-5.jpg",
+      "profilePictureSrcSet": "https://cdn-edge.kwork.ru/files/avatar/big/58/1304095-5.jpg?ver=1679645223 1x, https://cdn-edge.kwork.ru/files/avatar/big_r/58/1304095-5.jpg?ver=1679645223 2x",
+      "badges": [
+       {
+        "id": 1854783,
+        "user_id": "1304095",
+        "badge_id": "15",
+        "date_create": "2025-07-19 16:24:15",
+        "badge": {
+         "id": 15,
+         "title": "Опытный покупатель",
+         "description": "Сделано более 20 покупок",
+         "super_title": "Опытный суперпокупатель",
+         "super_description": "Сделано более 20 покупок и не менее 12 покупок за последние 3 месяца.",
+         "payer_level": 3,
+         "is_super_payer": false,
+         "sort": "1"
+        }
+       },
+       {
+        "id": 1736779,
+        "user_id": "1304095",
+        "badge_id": "42",
+        "date_create": "2024-10-08 10:34:17",
+        "badge": {
+         "id": 42,
+         "title": "Более 5 лет с Kwork",
+         "description": "",
+         "super_title": null,
+         "super_description": null,
+         "payer_level": null,
+         "is_super_payer": false,
+         "sort": "0"
+        }
+       }
+      ],
+      "data": {
+       "wants_count": "24",
+       "wants_hired_percent": "89"
+      }
+     },
+     "date_active": "2026-10-29 12:24:23",
+     "date_expire": "2026-10-30 12:24:23",
+     "date_create": "2026-10-29 12:24:23",
+     "views_dirty": "33",
+     "isUserWant": false,
+     "alreadyWork": null,
+     "isOtherActiveWantsExceptByWantId": false,
+     "timeLeft": "23 ч. 52 мин.",
+     "currentUserReviewType": null,
+     "hasPortfolioAvailable": false,
+     "isNeural": false,
+     "orderManagerStatusDone": 5,
+     "availableDurations": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      10,
+      14,
+      21,
+      30,
+      45,
+      60,
+      75,
+      90
+     ],
+     "categoryLinksIdRu": 59,
+     "getPriceThreshold": 4000
+    },
+    {
+     "userAlreadyWork": null,
+     "dateView": null,
+     "id": 3270197,
+     "status": "active",
+     "wantDates": {
+      "dateCreate": "29 октября",
+      "dateActive": "29 октября",
+      "dateExpire": "30 октября",
+      "dateReject": ""
+     },
+     "isWantActive": true,
+     "isWantArchive": false,
+     "altStatusHint": {
+      "color": "blue",
+      "title": "Сбор предложений"
+     },
+     "getReviewCanChange": false,
+     "wantGetSumOrderCount": 0,
+     "projectReviewType": null,
+     "wantUserGetProfileUrl": "https://kwork.ru/user/var4ik08",
+     "possiblePriceLimit": 1500,
+     "getWantsActiveCount": "1",
+     "isHigherPrice": true,
+     "category_id": "25",
+     "description": "Ищу исполнителя для разработки логотипа новой компании косметики.\r\nнужно разработать минималистичный, эстетичный и чистый логотип \r\n,Предложить варианты в разных стилях простой текстовый шрифт, графический знак, варианты с тонкими линиями или элементами природы, Предоставить логотип на прозрачном фоне (PNG) и в векторе для печати.\r\nБюджет: 500 рублей.\r\nЖду ваши портфолио",
+     "files": [],
+     "kwork_count": 9,
+     "lang": "ru",
+     "name": "Создание логотипа для компании косметики",
+     "max_days": "10",
+     "priceLimit": "500.00",
+     "user": {
+      "USERID": 25510851,
+      "username": "var4ik08",
+      "profilepicture": "noprofilepicture.gif",
+      "profilePictureSrcSet": "",
+      "badges": [],
+      "data": {
+       "wants_count": "1",
+       "wants_hired_percent": "0"
+      }
+     },
+     "date_active": "2026-10-29 12:20:38",
+     "date_expire": "2026-10-30 12:20:38",
+     "date_create": "2026-10-29 12:19:18",
+     "views_dirty": "95",
+     "isUserWant": false,
+     "alreadyWork": null,
+     "isOtherActiveWantsExceptByWantId": false,
+     "timeLeft": "23 ч. 48 мин.",
+     "currentUserReviewType": null,
+     "hasPortfolioAvailable": true,
+     "isNeural": false,
+     "orderManagerStatusDone": 5,
+     "availableDurations": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      10,
+      14,
+      21,
+      30,
+      45,
+      60,
+      75,
+      90
+     ],
+     "categoryLinksIdRu": 59,
+     "getPriceThreshold": 4000
+    },
+    {
+     "userAlreadyWork": null,
+     "dateView": null,
+     "id": 3270198,
+     "status": "active",
+     "wantDates": {
+      "dateCreate": "29 октября",
+      "dateActive": "29 октября",
+      "dateExpire": "30 октября",
+      "dateReject": ""
+     },
+     "isWantActive": true,
+     "isWantArchive": false,
+     "altStatusHint": {
+      "color": "blue",
+      "title": "Сбор предложений"
+     },
+     "getReviewCanChange": false,
+     "wantGetSumOrderCount": 0,
+     "projectReviewType": null,
+     "wantUserGetProfileUrl": "https://kwork.ru/user/mkd91",
+     "possiblePriceLimit": 7500,
+     "getWantsActiveCount": "1",
+     "isHigherPrice": true,
+     "category_id": "46",
+     "description": "Нужно настроить таргетинг ВКонтакте на акцию &laquo;Черная пятница&raquo; для сети автомагазинов и пунктов замены масла &laquo;Канистраойл&raquo; / &laquo;Ойл&raquo;.\r\nСообщество: https://vk.ru/kanistraoil\r\nЧто нужно сделать:\r\n&middot; собрать целевые аудитории: гео по филиалам, интересы, подписчики конкурентов, ключевые фразы;\r\n&middot; настроить рекламную кампанию на готовый пост;\r\n&middot; подобрать стратегию, ставки и бюджет;\r\n&middot; запустить кампанию и провести первичную оптимизацию.\r\nВажно: рекламный пост публикуем сами. Нужна только настройка таргетинга.\r\nЧто предоставим:\r\n&middot; ссылку на готовый пост;\r\n&middot; доступ к рекламному кабинету ВК или создадим новый;\r\n&middot; список городов и филиалов;\r\n&middot; бюджет на тест.",
+     "files": [],
+     "kwork_count": 3,
+     "lang": "ru",
+     "name": "Настройка таргетинга ВК для сети точек автомасел",
+     "max_days": "30",
+     "priceLimit": "2500.00",
+     "user": {
+      "USERID": 9846949,
+      "username": "mkd91",
+      "profilepicture": "21/9846949-2.jpg",
+      "profilePictureSrcSet": "https://cdn-edge.kwork.ru/files/avatar/big/21/9846949-2.jpg?ver=1723620936 1x, https://cdn-edge.kwork.ru/files/avatar/big_r/21/9846949-2.jpg?ver=1723620936 2x",
+      "badges": [
+       {
+        "id": 1900632,
+        "user_id": "9846949",
+        "badge_id": "17",
+        "date_create": "2025-10-24 12:06:21",
+        "badge": {
+         "id": 17,
+         "title": "Очень мощный покупатель",
+         "description": "Сделано более 100 покупок",
+         "super_title": "Очень мощный суперпокупатель",
+         "super_description": "Сделано более 100 покупок и не менее 12 покупок за последние 3 месяца.",
+         "payer_level": 5,
+         "is_super_payer": false,
+         "sort": "1"
+        }
+       },
+       {
+        "id": 1569506,
+        "user_id": "9846949",
+        "badge_id": "23",
+        "date_create": "2024-02-28 09:57:24",
+        "badge": {
+         "id": 23,
+         "title": "Суперкомментатор",
+         "description": "За написание подробных отзывов",
+         "super_title": "",
+         "super_description": null,
+         "payer_level": null,
+         "is_super_payer": false,
+         "sort": "1"
+        }
+       }
+      ],
+      "data": {
+       "wants_count": "189",
+       "wants_hired_percent": "73"
+      }
+     },
+     "date_active": "2026-10-29 12:19:30",
+     "date_expire": "2026-10-30 12:19:30",
+     "date_create": "2026-10-29 12:19:30",
+     "views_dirty": "65",
+     "isUserWant": false,
+     "alreadyWork": null,
+     "isOtherActiveWantsExceptByWantId": false,
+     "timeLeft": "23 ч. 47 мин.",
+     "currentUserReviewType": null,
+     "hasPortfolioAvailable": false,
+     "isNeural": false,
+     "orderManagerStatusDone": 5,
+     "availableDurations": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      10,
+      14,
+      21,
+      30,
+      45,
+      60,
+      75,
+      90
+     ],
+     "categoryLinksIdRu": 59,
+     "getPriceThreshold": 4000
+    },
+    {
+     "userAlreadyWork": null,
+     "dateView": null,
+     "id": 3270130,
+     "status": "active",
+     "wantDates": {
+      "dateCreate": "29 октября",
+      "dateActive": "29 октября",
+      "dateExpire": "1 ноября",
+      "dateReject": ""
+     },
+     "isWantActive": true,
+     "isWantArchive": false,
+     "altStatusHint": {
+      "color": "blue",
+      "title": "Сбор предложений"
+     },
+     "getReviewCanChange": false,
+     "wantGetSumOrderCount": 0,
+     "projectReviewType": null,
+     "wantUserGetProfileUrl": "https://kwork.ru/user/kosmovaimsk",
+     "possiblePriceLimit": 150000,
+     "getWantsActiveCount": "1",
+     "isHigherPrice": true,
+     "category_id": "78",
+     "description": "Ищем видеомонтажёра для двух проектов.\r\n1. &laquo;КОД 120&raquo; &mdash; 6 роликов, общий хронометраж до 11 минут.\r\n2. &laquo;Команда 21&raquo; &mdash; имиджевый ролик до 5 минут.\r\nВсе материалы уже готовы! Нужно собрать отдельные видеофрагменты в цельные ролики, сделать красивый динамичный монтаж с качественными переходами, стильными анимациями, графикой и саунд-дизайном.\r\nНужен современный, эффектный и профессиональный монтаж.\r\nСрок сдачи 2 ноября!",
+     "files": [
+      {
+       "FID": 403846921,
+       "USERID": "25510540",
+       "type_entity": 54,
+       "entity_id": "3270130",
+       "fname": "04_КОД_120_ТЗ_видео_ИСПРАВЛЕННОЕ.docx",
+       "s": "ea/07/40/956b33203d",
+       "size": 48331,
+       "time": "1793256017",
+       "lang": "ru",
+       "status": "active",
+       "storage": "local",
+       "miniature_status": "none",
+       "miniature_creating_attempts": "0",
+       "permanent": "0",
+       "mime_type_id": "16",
+       "sort_index": "0",
+       "url": "https://kwork.ru/files/uploaded/ea/07/40/956b33203d/04_%D0%9A%D0%9E%D0%94_120_%D0%A2%D0%97_%D0%B2%D0%B8%D0%B4%D0%B5%D0%BE_%D0%98%D0%A1%D0%9F%D0%A0%D0%90%D0%92%D0%9B%D0%95%D0%9D%D0%9D%D0%9E%D0%95.docx",
+       "file_image_representation": null
+      },
+      {
+       "FID": 403846930,
+       "USERID": "25510540",
+       "type_entity": 54,
+       "entity_id": "3270130",
+       "fname": "TZ_na_videomontazh_Komanda_21_FINAL_30_09.docx",
+       "s": "8f/38/2c/6871562c83",
+       "size": 56898,
+       "time": "1793256032",
+       "lang": "ru",
+       "status": "active",
+       "storage": "s3",
+       "miniature_status": "none",
+       "miniature_creating_attempts": "0",
+       "permanent": "0",
+       "mime_type_id": "16",
+       "sort_index": "0",
+       "url": "https://kwork.ru/files/uploaded/8f/38/2c/6871562c83/TZ_na_videomontazh_Komanda_21_FINAL_30_09.docx",
+       "file_image_representation": null
+      }
+     ],
+     "kwork_count": 15,
+     "lang": "ru",
+     "name": "Смонтировать видео",
+     "max_days": "10",
+     "priceLimit": "50000.00",
+     "user": {
+      "USERID": 25510540,
+      "username": "kosmovaimsk",
+      "profilepicture": "21/25510540-4.jpg",
+      "profilePictureSrcSet": "https://cdn-edge.kwork.ru/files/avatar/big/21/25510540-4.jpg?ver=1793266255 1x, https://cdn-edge.kwork.ru/files/avatar/big_r/21/25510540-4.jpg?ver=1793266255 2x",
+      "badges": [],
+      "data": {
+       "wants_count": "1",
+       "wants_hired_percent": "0"
+      }
+     },
+     "date_active": "2026-10-29 12:18:22",
+     "date_expire": "2026-11-01 09:43:30",
+     "date_create": "2026-10-29 09:40:58",
+     "views_dirty": "318",
+     "isUserWant": false,
+     "alreadyWork": null,
+     "isOtherActiveWantsExceptByWantId": false,
+     "timeLeft": "2 д. 21 ч.",
+     "currentUserReviewType": null,
+     "hasPortfolioAvailable": true,
+     "isNeural": false,
+     "orderManagerStatusDone": 5,
+     "availableDurations": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      10,
+      14,
+      21,
+      30,
+      45,
+      60,
+      75,
+      90
+     ],
+     "categoryLinksIdRu": 59,
+     "getPriceThreshold": 4000
+    },
+    {
+     "userAlreadyWork": null,
+     "dateView": null,
+     "id": 3270196,
+     "status": "active",
+     "wantDates": {
+      "dateCreate": "29 октября",
+      "dateActive": "29 октября",
+      "dateExpire": "30 октября",
+      "dateReject": ""
+     },
+     "isWantActive": true,
+     "isWantArchive": false,
+     "altStatusHint": {
+      "color": "blue",
+      "title": "Сбор предложений"
+     },
+     "getReviewCanChange": false,
+     "wantGetSumOrderCount": 0,
+     "projectReviewType": null,
+     "wantUserGetProfileUrl": "https://kwork.ru/user/leadergreed",
+     "possiblePriceLimit": 4500,
+     "getWantsActiveCount": "1",
+     "isHigherPrice": true,
+     "category_id": "84",
+     "description": "Здравствуйте, нужен пользователь с брокерским счетом в ВТБ, нужен только брокерский отчет! Все личные данные можете удалить, также можете любые данные поменять, нужна структура отчета.\r\nСпасибо!",
+     "files": [],
+     "kwork_count": 0,
+     "lang": "ru",
+     "name": "Обезличенный брокерский отчет ВТБ",
+     "max_days": "10",
+     "priceLimit": "1500.00",
+     "user": {
+      "USERID": 18242386,
+      "username": "leadergreed",
+      "profilepicture": "05/18242386-1.jpg",
+      "profilePictureSrcSet": "https://cdn-edge.kwork.ru/files/avatar/big/05/18242386-1.jpg?ver=1725610755 1x, https://cdn-edge.kwork.ru/files/avatar/big_r/05/18242386-1.jpg?ver=1725610755 2x",
+      "badges": [],
+      "data": {
+       "wants_count": "3",
+       "wants_hired_percent": "100"
+      }
+     },
+     "date_active": "2026-10-29 12:17:45",
+     "date_expire": "2026-10-30 12:08:06",
+     "date_create": "2026-10-29 12:08:06",
+     "views_dirty": "78",
+     "isUserWant": false,
+     "alreadyWork": null,
+     "isOtherActiveWantsExceptByWantId": false,
+     "timeLeft": "23 ч. 36 мин.",
+     "currentUserReviewType": null,
+     "hasPortfolioAvailable": true,
+     "isNeural": false,
+     "orderManagerStatusDone": 5,
+     "availableDurations": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      10,
+      14,
+      21,
+      30,
+      45,
+      60,
+      75,
+      90
+     ],
+     "categoryLinksIdRu": 59,
+     "getPriceThreshold": 4000
+    },
+    {
+     "userAlreadyWork": null,
+     "dateView": null,
+     "id": 3265833,
+     "status": "active",
+     "wantDates": {
+      "dateCreate": "9 октября, 18:55",
+      "dateActive": "29 октября, 12:17",
+      "dateExpire": "30 октября, 12:17",
+      "dateReject": "9 октября, 19:23"
+     },
+     "isWantActive": true,
+     "isWantArchive": false,
+     "altStatusHint": {
+      "color": "blue",
+      "title": "Сбор предложений"
+     },
+     "getReviewCanChange": false,
+     "wantGetSumOrderCount": 0,
+     "projectReviewType": null,
+     "wantUserGetProfileUrl": "https://kwork.ru/user/melurnik",
+     "possiblePriceLimit": 1500,
+     "getWantsActiveCount": "13",
+     "isHigherPrice": true,
+     "category_id": "41",
+     "description": "В 2025 году почтовые сервисы делятся на три основные категории: для массового пользователя- другие не интересуют. При подаче предложения прочу дать краткое или развернутое описание того , что предлагаете и желательно,если Ваша цена отличается от предложенной мной, стоимость. С установкой на сервере(мой).",
+     "files": [],
+     "kwork_count": 1,
+     "lang": "ru",
+     "name": "Создать почтовый сервис",
+     "max_days": "10",
+     "priceLimit": "500.00",
+     "user": {
+      "USERID": 24589192,
+      "username": "melurnik",
+      "profilepicture": "noprofilepicture.gif",
+      "profilePictureSrcSet": "",
+      "badges": [
+       {
+        "id": 2046794,
+        "user_id": "24589192",
+        "badge_id": "14",
+        "date_create": "2026-08-13 10:48:41",
+        "badge": {
+         "id": 14,
+         "title": "Освоившийся покупатель",
+         "description": "Сделано более 7 покупок",
+         "super_title": "Освоившийся суперпокупатель",
+         "super_description": "Сделано более 7 покупок  и не менее 12 покупок за последние 3 месяца.",
+         "payer_level": 2,
+         "is_super_payer": false,
+         "sort": "1"
+        }
+       }
+      ],
+      "data": {
+       "wants_count": "21",
+       "wants_hired_percent": "25"
+      }
+     },
+     "date_active": "2026-10-29 12:17:22",
+     "date_expire": "2026-10-30 12:17:22",
+     "date_create": "2026-10-09 18:55:32",
+     "views_dirty": "9795",
+     "isUserWant": false,
+     "alreadyWork": null,
+     "isOtherActiveWantsExceptByWantId": true,
+     "timeLeft": "23 ч. 45 мин.",
+     "currentUserReviewType": null,
+     "hasPortfolioAvailable": false,
+     "isNeural": false,
+     "orderManagerStatusDone": 5,
+     "availableDurations": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      10,
+      14,
+      21,
+      30,
+      45,
+      60,
+      75,
+      90
+     ],
+     "categoryLinksIdRu": 59,
+     "getPriceThreshold": 4000
+    },
+    {
+     "userAlreadyWork": null,
+     "dateView": null,
+     "id": 3262922,
+     "status": "active",
+     "wantDates": {
+      "dateCreate": "3 октября, 18:56",
+      "dateActive": "29 октября, 12:15",
+      "dateExpire": "30 октября, 12:15",
+      "dateReject": "3 октября, 19:10"
+     },
+     "isWantActive": true,
+     "isWantArchive": false,
+     "altStatusHint": {
+      "color": "blue",
+      "title": "Сбор предложений"
+     },
+     "getReviewCanChange": false,
+     "wantGetSumOrderCount": 0,
+     "projectReviewType": null,
+     "wantUserGetProfileUrl": "https://kwork.ru/user/melurnik",
+     "possiblePriceLimit": 1500,
+     "getWantsActiveCount": "13",
+     "isHigherPrice": true,
+     "category_id": "37",
+     "description": "БЕЗ описания ЧТО сделаете И ЗА сколько-ИГНОР.Зачем нужен \r\nПлатформа решает несколько задач:\r\n* даёт пользователям доступ к приложениям, в том числе к тем, которых нет в зарубежных сторах (например, к банковским и государственным сервисам);\r\n* служит альтернативным каналом дистрибуции для разработчиков;\r\n* поддерживает российские платёжные инструменты&nbsp;&mdash;&nbsp;можно оплачивать подписки и покупки внутри приложений с российских карт.\r\nпредставлено свыше 100&nbsp;тысяч приложений. Среди них:\r\n* мобильные банки (&laquo;СберБанк&nbsp;Онлайн&raquo;, &laquo;ВТБ&nbsp;Онлайн&raquo; и др.);\r\n* государственные сервисы (&laquo;Госуслуги&raquo;, &laquo;Мой налог&raquo;, &laquo;Госключ&raquo; и т.&nbsp;п.);\r\n* маркетплейсы и сервисы доставки (Ozon, Wildberries, &laquo;Самокат&raquo; и др.);\r\n* соцсети и развлекательные сервисы (&laquo;ВКонтакте&raquo;, &laquo;Одноклассники&raquo;, онлайн‑кинотеатры);\r\n* игры и утилиты\r\nОсновные функции для пользователей\r\nПоиск, скачивание и обновление приложений.** Можно искать по категориям или через строку поиска, устанавливать и обновлять софт.\r\n Платежи и подписки. Поддерживаются локальные способы оплаты, есть возможность привязки карты.\r\nПодборки и рекомендации. В разделе &laquo;Интересное&raquo;&nbsp;&mdash;&nbsp;редакционные подборки, новинки и популярное.\r\nАвторизация.Можно войти через VK&nbsp;ID, Sber&nbsp;ID, Tinkoff&nbsp;ID или Yandex&nbsp;ID либо пользоваться магазином без аккаунта (если не нужны платные покупки).\r\nВозможности для разработчиков",
+     "files": [],
+     "kwork_count": 1,
+     "lang": "ru",
+     "name": "Создать Магазин приложений типа rustore.ru",
+     "max_days": "10",
+     "priceLimit": "500.00",
+     "user": {
+      "USERID": 24589192,
+      "username": "melurnik",
+      "profilepicture": "noprofilepicture.gif",
+      "profilePictureSrcSet": "",
+      "badges": [
+       {
+        "id": 2046794,
+        "user_id": "24589192",
+        "badge_id": "14",
+        "date_create": "2026-08-13 10:48:41",
+        "badge": {
+         "id": 14,
+         "title": "Освоившийся покупатель",
+         "description": "Сделано более 7 покупок",
+         "super_title": "Освоившийся суперпокупатель",
+         "super_description": "Сделано более 7 покупок  и не менее 12 покупок за последние 3 месяца.",
+         "payer_level": 2,
+         "is_super_payer": false,
+         "sort": "1"
+        }
+       }
+      ],
+      "data": {
+       "wants_count": "21",
+       "wants_hired_percent": "25"
+      }
+     },
+     "date_active": "2026-10-29 12:15:32",
+     "date_expire": "2026-10-30 12:15:32",
+     "date_create": "2026-10-03 18:56:41",
+     "views_dirty": "13230",
+     "isUserWant": false,
+     "alreadyWork": null,
+     "isOtherActiveWantsExceptByWantId": true,
+     "timeLeft": "23 ч. 43 мин.",
+     "currentUserReviewType": null,
+     "hasPortfolioAvailable": true,
+     "isNeural": false,
+     "orderManagerStatusDone": 5,
+     "availableDurations": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      10,
+      14,
+      21,
+      30,
+      45,
+      60,
+      75,
+      90
+     ],
+     "categoryLinksIdRu": 59,
+     "getPriceThreshold": 4000
+    },
+    {
+     "userAlreadyWork": null,
+     "dateView": null,
+     "id": 3269944,
+     "status": "active",
+     "wantDates": {
+      "dateCreate": "28 октября",
+      "dateActive": "29 октября",
+      "dateExpire": "30 октября",
+      "dateReject": ""
+     },
+     "isWantActive": true,
+     "isWantArchive": false,
+     "altStatusHint": {
+      "color": "blue",
+      "title": "Сбор предложений"
+     },
+     "getReviewCanChange": false,
+     "wantGetSumOrderCount": 0,
+     "projectReviewType": null,
+     "wantUserGetProfileUrl": "https://kwork.ru/user/melurnik",
+     "possiblePriceLimit": 1500,
+     "getWantsActiveCount": "13",
+     "isHigherPrice": true,
+     "category_id": "37",
+     "description": "В предложениях описание И ЦЕНА обязательна.\r\nИнтернет-сервис для размещения объявлений о товарах, недвижимости, вакансиях и резюме на рынке труда, а также услугах, и прочее. Объявления могут размещать как частные лица, так и компании. Товары, предлагаемые к продаже на, могут быть новыми и бывшими в использовании.",
+     "files": [],
+     "kwork_count": 3,
+     "lang": "ru",
+     "name": "Интернет-сервис для размещения объявлений",
+     "max_days": "10",
+     "priceLimit": "500.00",
+     "user": {
+      "USERID": 24589192,
+      "username": "melurnik",
+      "profilepicture": "noprofilepicture.gif",
+      "profilePictureSrcSet": "",
+      "badges": [
+       {
+        "id": 2046794,
+        "user_id": "24589192",
+        "badge_id": "14",
+        "date_create": "2026-08-13 10:48:41",
+        "badge": {
+         "id": 14,
+         "title": "Освоившийся покупатель",
+         "description": "Сделано более 7 покупок",
+         "super_title": "Освоившийся суперпокупатель",
+         "super_description": "Сделано более 7 покупок  и не менее 12 покупок за последние 3 месяца.",
+         "payer_level": 2,
+         "is_super_payer": false,
+         "sort": "1"
+        }
+       }
+      ],
+      "data": {
+       "wants_count": "21",
+       "wants_hired_percent": "25"
+      }
+     },
+     "date_active": "2026-10-29 12:12:37",
+     "date_expire": "2026-10-30 12:12:37",
+     "date_create": "2026-10-28 12:09:43",
+     "views_dirty": "1181",
+     "isUserWant": false,
+     "alreadyWork": null,
+     "isOtherActiveWantsExceptByWantId": true,
+     "timeLeft": "23 ч. 40 мин.",
+     "currentUserReviewType": null,
+     "hasPortfolioAvailable": true,
+     "isNeural": false,
+     "orderManagerStatusDone": 5,
+     "availableDurations": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      10,
+      14,
+      21,
+      30,
+      45,
+      60,
+      75,
+      90
+     ],
+     "categoryLinksIdRu": 59,
+     "getPriceThreshold": 4000
+    },
+    {
+     "userAlreadyWork": null,
+     "dateView": null,
+     "id": 3252074,
+     "status": "active",
+     "wantDates": {
+      "dateCreate": "12 сентября, 15:25",
+      "dateActive": "29 октября, 12:11",
+      "dateExpire": "30 октября, 12:11",
+      "dateReject": "13 сентября, 11:16"
+     },
+     "isWantActive": true,
+     "isWantArchive": false,
+     "altStatusHint": {
+      "color": "blue",
+      "title": "Сбор предложений"
+     },
+     "getReviewCanChange": false,
+     "wantGetSumOrderCount": 0,
+     "projectReviewType": null,
+     "wantUserGetProfileUrl": "https://kwork.ru/user/melurnik",
+     "possiblePriceLimit": 1500,
+     "getWantsActiveCount": "13",
+     "isHigherPrice": true,
+     "category_id": "255",
+     "description": "На сервере было установлена видеомедиаплатформа создатель изчез-возможно ли востановить. Переписка есть. сервера НЕТ\r\nОписание задания:  Приветствую! Требуется специалист для настройки сетевой инфраструктуры на удаленном сервере.",
+     "files": [],
+     "kwork_count": 1,
+     "lang": "ru",
+     "name": "Настройка VPS",
+     "max_days": "10",
+     "priceLimit": "500.00",
+     "user": {
+      "USERID": 24589192,
+      "username": "melurnik",
+      "profilepicture": "noprofilepicture.gif",
+      "profilePictureSrcSet": "",
+      "badges": [
+       {
+        "id": 2046794,
+        "user_id": "24589192",
+        "badge_id": "14",
+        "date_create": "2026-08-13 10:48:41",
+        "badge": {
+         "id": 14,
+         "title": "Освоившийся покупатель",
+         "description": "Сделано более 7 покупок",
+         "super_title": "Освоившийся суперпокупатель",
+         "super_description": "Сделано более 7 покупок  и не менее 12 покупок за последние 3 месяца.",
+         "payer_level": 2,
+         "is_super_payer": false,
+         "sort": "1"
+        }
+       }
+      ],
+      "data": {
+       "wants_count": "21",
+       "wants_hired_percent": "25"
+      }
+     },
+     "date_active": "2026-10-29 12:11:14",
+     "date_expire": "2026-10-30 12:11:14",
+     "date_create": "2026-09-12 15:25:04",
+     "views_dirty": "9078",
+     "isUserWant": false,
+     "alreadyWork": null,
+     "isOtherActiveWantsExceptByWantId": true,
+     "timeLeft": "23 ч. 39 мин.",
+     "currentUserReviewType": null,
+     "hasPortfolioAvailable": false,
+     "isNeural": false,
+     "orderManagerStatusDone": 5,
+     "availableDurations": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      10,
+      14,
+      21,
+      30,
+      45,
+      60,
+      75,
+      90
+     ],
+     "categoryLinksIdRu": 59,
+     "getPriceThreshold": 4000
+    }
+   ],
+   "first_page_url": "http://kwork.ru/projects?page=1",
+   "from": 1,
+   "last_page": 35,
+   "last_page_url": "http://kwork.ru/projects?page=35",
+   "links": [
+    {
+     "url": null,
+     "label": "Previous",
+     "active": false
+    },
+    {
+     "url": "http://kwork.ru/projects?page=1",
+     "label": "1",
+     "active": true
+    },
+    {
+     "url": "http://kwork.ru/projects?page=2",
+     "label": "2",
+     "active": false
+    },
+    {
+     "url": "http://kwork.ru/projects?page=3",
+     "label": "3",
+     "active": false
+    },
+    {
+     "url": "http://kwork.ru/projects?page=4",
+     "label": "4",
+     "active": false
+    },
+    {
+     "url": "http://kwork.ru/projects?page=5",
+     "label": "5",
+     "active": false
+    },
+    {
+     "url": "http://kwork.ru/projects?page=6",
+     "label": "6",
+     "active": false
+    },
+    {
+     "url": "http://kwork.ru/projects?page=7",
+     "label": "7",
+     "active": false
+    },
+    {
+     "url": "http://kwork.ru/projects?page=8",
+     "label": "8",
+     "active": false
+    },
+    {
+     "url": "http://kwork.ru/projects?page=9",
+     "label": "9",
+     "active": false
+    },
+    {
+     "url": "http://kwork.ru/projects?page=10",
+     "label": "10",
+     "active": false
+    },
+    {
+     "url": null,
+     "label": "...",
+     "active": false
+    },
+    {
+     "url": "http://kwork.ru/projects?page=34",
+     "label": "34",
+     "active": false
+    },
+    {
+     "url": "http://kwork.ru/projects?page=35",
+     "label": "35",
+     "active": false
+    },
+    {
+     "url": "http://kwork.ru/projects?page=2",
+     "label": "Next",
+     "active": false
+    }
+   ],
+   "next_page_url": "http://kwork.ru/projects?page=2",
+   "path": "http://kwork.ru/projects",
+   "per_page": 12,
+   "prev_page_url": null,
+   "to": 12,
+   "total": 414
+  },
+  "wants": [
+   {
+    "userAlreadyWork": null,
+    "dateView": null,
+    "id": 3270202,
+    "status": "active",
+    "wantDates": {
+     "dateCreate": "29 октября",
+     "dateActive": "29 октября",
+     "dateExpire": "30 октября",
+     "dateReject": ""
+    },
+    "isWantActive": true,
+    "isWantArchive": false,
+    "altStatusHint": {
+     "color": "blue",
+     "title": "Сбор предложений"
+    },
+    "getReviewCanChange": false,
+    "wantGetSumOrderCount": 0,
+    "projectReviewType": null,
+    "wantUserGetProfileUrl": "https://kwork.ru/user/opencast",
+    "possiblePriceLimit": 500,
+    "getWantsActiveCount": "1",
+    "isHigherPrice": false,
+    "category_id": "81",
+    "description": "Требуется QA-тестировщик для комплексного тестирования веб-сервиса.\r\nНеобходимо провести полную проверку работоспособности сайта перед публичным запуском.\r\nПроверить главную страницу (лендинг), регистрацию и авторизацию через все доступные способы, работу личного кабинета и разделов.\r\nПротестировать весь функционал: загрузку фотографий, генерацию изображений и видео, настройки, переключатели, кнопки, переходы, сохранение проектов, сортировку, скачивание результатов, баланс токенов и обработку ошибок.\r\nПроверить работу в разных браузерах (Chrome, Firefox, Edge, Яндекс Браузер). Личный кабинет тестируется только на ПК, мобильная версия - только для лендинга.\r\nНужен подробный отчёт со всеми найденными ошибками, скриншотами, описанием проблем и рекомендациями по улучшению. Также требуется оценка удобства сервиса глазами обычного пользователя и готовности сайта к запуску.\r\nРеальные платежи не проводятся, тестовые токены предоставляются.\r\nЗа найденные критические ошибки предусмотрен дополнительный бонус.",
+    "files": [],
+    "kwork_count": 0,
+    "lang": "ru",
+    "name": "Полное функциональное и UX-тестирование веб-сервиса",
+    "max_days": "10",
+    "priceLimit": "500.00",
+    "user": {
+     "USERID": 1476811,
+     "username": "opencast",
+     "profilepicture": "noprofilepicture.gif",
+     "profilePictureSrcSet": "",
+     "badges": [],
+     "data": {
+      "wants_count": "6",
+      "wants_hired_percent": "0"
+     }
+    },
+    "date_active": "2026-10-29 12:29:43",
+    "date_expire": "2026-10-30 12:29:43",
+    "date_create": "2026-10-29 12:25:15",
+    "views_dirty": "46",
+    "isUserWant": false,
+    "alreadyWork": null,
+    "isOtherActiveWantsExceptByWantId": false,
+    "timeLeft": "23 ч. 57 мин.",
+    "currentUserReviewType": null,
+    "hasPortfolioAvailable": false,
+    "isNeural": false,
+    "orderManagerStatusDone": 5,
+    "availableDurations": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     10,
+     14,
+     21,
+     30,
+     45,
+     60,
+     75,
+     90
+    ],
+    "categoryLinksIdRu": 59,
+    "getPriceThreshold": 4000
+   },
+   {
+    "userAlreadyWork": null,
+    "dateView": null,
+    "id": 3270203,
+    "status": "active",
+    "wantDates": {
+     "dateCreate": "29 октября",
+     "dateActive": "29 октября",
+     "dateExpire": "30 октября",
+     "dateReject": ""
+    },
+    "isWantActive": true,
+    "isWantArchive": false,
+    "altStatusHint": {
+     "color": "blue",
+     "title": "Сбор предложений"
+    },
+    "getReviewCanChange": false,
+    "wantGetSumOrderCount": 0,
+    "projectReviewType": null,
+    "wantUserGetProfileUrl": "https://kwork.ru/user/ruslan1365",
+    "possiblePriceLimit": 6000,
+    "getWantsActiveCount": "1",
+    "isHigherPrice": true,
+    "category_id": "250",
+    "description": "Требуется опытный 3D-моделлер для создания высокоточной цифровой модели пресс-формы (матрицы) с художественным барельефом. Модель будет использоваться на CNC-станке (фрезеровка из POM / полиамида) для формованных изделий.\r\nЧто нужно сделать:\r\nРазработать объемную 3D-модель по готовому фото-эталону и эскизу (сложный художественный рельеф с перепадом высот).\r\nГрамотно спроектировать геометрию с учетом технологических требований фрезеровки: плавные радиусы скругления во впадинах, отсутствие обратных углов (поднутрений) и обязательные уклоны стенок для легкого извлечения готового продукта из матрицы.\r\nОбеспечить четкое зонирование: крупные выпуклые элементы и глубокие, широкие разделительные канавки без мелких &laquo;слепых&raquo; щелей.",
+    "files": [],
+    "kwork_count": 0,
+    "lang": "ru",
+    "name": "Разработка 3D-модели рельефного изделия для фрезеровки",
+    "max_days": "10",
+    "priceLimit": "2000.00",
+    "user": {
+     "USERID": 7742042,
+     "username": "Ruslan1365",
+     "profilepicture": "07/7742042-8.jpg",
+     "profilePictureSrcSet": "https://cdn-edge.kwork.ru/files/avatar/big/07/7742042-8.jpg?ver=1740760336 1x, https://cdn-edge.kwork.ru/files/avatar/big_r/07/7742042-8.jpg?ver=1740760336 2x",
+     "badges": [
+      {
+       "id": 1578896,
+       "user_id": "7742042",
+       "badge_id": "15",
+       "date_create": "2024-03-21 11:07:10",
+       "badge": {
+        "id": 15,
+        "title": "Опытный покупатель",
+        "description": "Сделано более 20 покупок",
+        "super_title": "Опытный суперпокупатель",
+        "super_description": "Сделано более 20 покупок и не менее 12 покупок за последние 3 месяца.",
+        "payer_level": 3,
+        "is_super_payer": false,
+        "sort": "1"
+       }
+      }
+     ],
+     "data": {
+      "wants_count": "12",
+      "wants_hired_percent": "83"
+     }
+    },
+    "date_active": "2026-10-29 12:25:48",
+    "date_expire": "2026-10-30 12:25:48",
+    "date_create": "2026-10-29 12:25:48",
+    "views_dirty": "57",
+    "isUserWant": false,
+    "alreadyWork": null,
+    "isOtherActiveWantsExceptByWantId": false,
+    "timeLeft": "23 ч. 53 мин.",
+    "currentUserReviewType": null,
+    "hasPortfolioAvailable": true,
+    "isNeural": false,
+    "orderManagerStatusDone": 5,
+    "availableDurations": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     10,
+     14,
+     21,
+     30,
+     45,
+     60,
+     75,
+     90
+    ],
+    "categoryLinksIdRu": 59,
+    "getPriceThreshold": 4000
+   },
+   {
+    "userAlreadyWork": null,
+    "dateView": null,
+    "id": 3270199,
+    "status": "active",
+    "wantDates": {
+     "dateCreate": "29 октября",
+     "dateActive": "29 октября",
+     "dateExpire": "31 октября",
+     "dateReject": ""
+    },
+    "isWantActive": true,
+    "isWantArchive": false,
+    "altStatusHint": {
+     "color": "blue",
+     "title": "Сбор предложений"
+    },
+    "getReviewCanChange": false,
+    "wantGetSumOrderCount": 0,
+    "projectReviewType": null,
+    "wantUserGetProfileUrl": "https://kwork.ru/user/stroisnab2007",
+    "possiblePriceLimit": 15000,
+    "getWantsActiveCount": "1",
+    "isHigherPrice": true,
+    "category_id": "24",
+    "description": "Дизайн веб-платформы услуг в Figma\r\nИщем дизайнера интерфейсов для веб-платформы: заказчики размещают заказы, проверенные специалисты берут их в работу. Оплата через безопасную сделку, ИИ-помощник для заявок, команды специалистов, торги.\r\nЕсть подробное описание логики, логотип и фирменные цвета. Интерфейс проектируем с нуля.\r\nЧто сделать:\r\n&mdash; проектирование: сценарии всех ролей, карта экранов, схемы экранов (wireframes);\r\n&mdash; стиль и дизайн-система: цвета, шрифты, иконки, компоненты со всеми состояниями, светлая и тёмная тема;\r\n&mdash; около 85&ndash;90 экранов: вход, кабинеты заказчика и специалиста, админка, публичный сайт;\r\n&mdash; адаптив: телефон 360 px, планшет 768&ndash;1024 px, компьютер 1280 px;\r\n&mdash; шаблоны писем и авторский надзор за вёрсткой;\r\n&mdash; позже, отдельным этапом, мобильное приложение (25&ndash;30 экранов).\r\nТребования: Figma, компоненты с вариантами, Auto Layout, токены, доступность WCAG AA, шрифты и иконки с коммерческой лицензией.\r\nРазработка уже идёт, поэтому макеты нужны поэтапно, на шаг впереди неё. NDA, передача прав по актам, оплата по этапам после приёмки, два круга правок на этап.\r\nВ отклике пришлите портфолио со сложными веб-сервисами (кабинеты, админки), оценку по этапам (часы, стоимость, сроки), сколько часов в неделю готовы уделять и с какой даты можете начать. Полное задание &mdash; во вложении.",
+    "files": [
+     {
+      "FID": 403854521,
+      "USERID": "16961627",
+      "type_entity": 54,
+      "entity_id": "3270199",
+      "fname": "Zadanie_dizaineru.docx",
+      "s": "85/bc/ba/24b616d3a1",
+      "size": 12082,
+      "time": "1793265575",
+      "lang": "ru",
+      "status": "active",
+      "storage": "s3",
+      "miniature_status": "none",
+      "miniature_creating_attempts": "0",
+      "permanent": "0",
+      "mime_type_id": "16",
+      "sort_index": "0",
+      "url": "https://kwork.ru/files/uploaded/85/bc/ba/24b616d3a1/Zadanie_dizaineru.docx",
+      "file_image_representation": null
+     }
+    ],
+    "kwork_count": 1,
+    "lang": "ru",
+    "name": "UX/UI-дизайн платформы услуг в Figma с нуля",
+    "max_days": "10",
+    "priceLimit": "5000.00",
+    "user": {
+     "USERID": 16961627,
+     "username": "stroisnab2007",
+     "profilepicture": "10/16961627-4.jpg",
+     "profilePictureSrcSet": "https://cdn-edge.kwork.ru/files/avatar/big/10/16961627-4.jpg?ver=1788967135 1x, https://cdn-edge.kwork.ru/files/avatar/big_r/10/16961627-4.jpg?ver=1788967135 2x",
+     "badges": [
+      {
+       "id": 2011207,
+       "user_id": "16961627",
+       "badge_id": "17",
+       "date_create": "2026-03-12 04:21:50",
+       "badge": {
+        "id": 17,
+        "title": "Очень мощный покупатель",
+        "description": "Сделано более 100 покупок",
+        "super_title": "Очень мощный суперпокупатель",
+        "super_description": "Сделано более 100 покупок и не менее 12 покупок за последние 3 месяца.",
+        "payer_level": 5,
+        "is_super_payer": false,
+        "sort": "1"
+       }
+      },
+      {
+       "id": 1872015,
+       "user_id": "16961627",
+       "badge_id": "23",
+       "date_create": "2025-09-12 03:39:13",
+       "badge": {
+        "id": 23,
+        "title": "Суперкомментатор",
+        "description": "За написание подробных отзывов",
+        "super_title": "",
+        "super_description": null,
+        "payer_level": null,
+        "is_super_payer": false,
+        "sort": "1"
+       }
+      }
+     ],
+     "data": {
+      "wants_count": "36",
+      "wants_hired_percent": "96"
+     }
+    },
+    "date_active": "2026-10-29 12:24:25",
+    "date_expire": "2026-10-31 12:19:40",
+    "date_create": "2026-10-29 12:19:40",
+    "views_dirty": "93",
+    "isUserWant": false,
+    "alreadyWork": null,
+    "isOtherActiveWantsExceptByWantId": false,
+    "timeLeft": "1 д. 23 ч.",
+    "currentUserReviewType": null,
+    "hasPortfolioAvailable": true,
+    "isNeural": false,
+    "orderManagerStatusDone": 5,
+    "availableDurations": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     10,
+     14,
+     21,
+     30,
+     45,
+     60,
+     75,
+     90
+    ],
+    "categoryLinksIdRu": 59,
+    "getPriceThreshold": 4000
+   },
+   {
+    "userAlreadyWork": null,
+    "dateView": null,
+    "id": 3270201,
+    "status": "active",
+    "wantDates": {
+     "dateCreate": "29 октября",
+     "dateActive": "29 октября",
+     "dateExpire": "30 октября",
+     "dateReject": ""
+    },
+    "isWantActive": true,
+    "isWantArchive": false,
+    "altStatusHint": {
+     "color": "blue",
+     "title": "Сбор предложений"
+    },
+    "getReviewCanChange": false,
+    "wantGetSumOrderCount": 0,
+    "projectReviewType": null,
+    "wantUserGetProfileUrl": "https://kwork.ru/user/klarius",
+    "possiblePriceLimit": 500,
+    "getWantsActiveCount": "1",
+    "isHigherPrice": false,
+    "category_id": "71",
+    "description": "1. Взять топ 10 результатов из Яндекс Директа по ключевым словам (гео: Москва):\r\nсертификация высоковольтного оборудования\r\nиспытания высоковольтного оборудования\r\nсертификат тртс 032\r\nсертифкат тртс 004\r\nсертификат тртс 020\r\nаттестация россети\r\n2. По каждому из ключевых слов получить 5 уникальных лидеров - сайтов\r\n3. Выгрузить семантику и тексты объявлений по каждому\r\nТребования: в общей сложности в отчете должна быть семантика и тексты объявлений не менее чем по 30 сайтам (и не менее 5 сайтов на каждый ключ). Если по каким то ключам сайты пересекаются, включите тогда данные по какому нибудь домену за пределами топ 5",
+    "files": [],
+    "kwork_count": 0,
+    "lang": "ru",
+    "name": "Анализ по Keys.so",
+    "max_days": "10",
+    "priceLimit": "500.00",
+    "user": {
+     "USERID": 1304095,
+     "username": "Klarius",
+     "profilepicture": "58/1304095-5.jpg",
+     "profilePictureSrcSet": "https://cdn-edge.kwork.ru/files/avatar/big/58/1304095-5.jpg?ver=1679645223 1x, https://cdn-edge.kwork.ru/files/avatar/big_r/58/1304095-5.jpg?ver=1679645223 2x",
+     "badges": [
+      {
+       "id": 1854783,
+       "user_id": "1304095",
+       "badge_id": "15",
+       "date_create": "2025-07-19 16:24:15",
+       "badge": {
+        "id": 15,
+        "title": "Опытный покупатель",
+        "description": "Сделано более 20 покупок",
+        "super_title": "Опытный суперпокупатель",
+        "super_description": "Сделано более 20 покупок и не менее 12 покупок за последние 3 месяца.",
+        "payer_level": 3,
+        "is_super_payer": false,
+        "sort": "1"
+       }
+      },
+      {
+       "id": 1736779,
+       "user_id": "1304095",
+       "badge_id": "42",
+       "date_create": "2024-10-08 10:34:17",
+       "badge": {
+        "id": 42,
+        "title": "Более 5 лет с Kwork",
+        "description": "",
+        "super_title": null,
+        "super_description": null,
+        "payer_level": null,
+        "is_super_payer": false,
+        "sort": "0"
+       }
+      }
+     ],
+     "data": {
+      "wants_count": "24",
+      "wants_hired_percent": "89"
+     }
+    },
+    "date_active": "2026-10-29 12:24:23",
+    "date_expire": "2026-10-30 12:24:23",
+    "date_create": "2026-10-29 12:24:23",
+    "views_dirty": "33",
+    "isUserWant": false,
+    "alreadyWork": null,
+    "isOtherActiveWantsExceptByWantId": false,
+    "timeLeft": "23 ч. 52 мин.",
+    "currentUserReviewType": null,
+    "hasPortfolioAvailable": false,
+    "isNeural": false,
+    "orderManagerStatusDone": 5,
+    "availableDurations": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     10,
+     14,
+     21,
+     30,
+     45,
+     60,
+     75,
+     90
+    ],
+    "categoryLinksIdRu": 59,
+    "getPriceThreshold": 4000
+   },
+   {
+    "userAlreadyWork": null,
+    "dateView": null,
+    "id": 3270197,
+    "status": "active",
+    "wantDates": {
+     "dateCreate": "29 октября",
+     "dateActive": "29 октября",
+     "dateExpire": "30 октября",
+     "dateReject": ""
+    },
+    "isWantActive": true,
+    "isWantArchive": false,
+    "altStatusHint": {
+     "color": "blue",
+     "title": "Сбор предложений"
+    },
+    "getReviewCanChange": false,
+    "wantGetSumOrderCount": 0,
+    "projectReviewType": null,
+    "wantUserGetProfileUrl": "https://kwork.ru/user/var4ik08",
+    "possiblePriceLimit": 1500,
+    "getWantsActiveCount": "1",
+    "isHigherPrice": true,
+    "category_id": "25",
+    "description": "Ищу исполнителя для разработки логотипа новой компании косметики.\r\nнужно разработать минималистичный, эстетичный и чистый логотип \r\n,Предложить варианты в разных стилях простой текстовый шрифт, графический знак, варианты с тонкими линиями или элементами природы, Предоставить логотип на прозрачном фоне (PNG) и в векторе для печати.\r\nБюджет: 500 рублей.\r\nЖду ваши портфолио",
+    "files": [],
+    "kwork_count": 9,
+    "lang": "ru",
+    "name": "Создание логотипа для компании косметики",
+    "max_days": "10",
+    "priceLimit": "500.00",
+    "user": {
+     "USERID": 25510851,
+     "username": "var4ik08",
+     "profilepicture": "noprofilepicture.gif",
+     "profilePictureSrcSet": "",
+     "badges": [],
+     "data": {
+      "wants_count": "1",
+      "wants_hired_percent": "0"
+     }
+    },
+    "date_active": "2026-10-29 12:20:38",
+    "date_expire": "2026-10-30 12:20:38",
+    "date_create": "2026-10-29 12:19:18",
+    "views_dirty": "95",
+    "isUserWant": false,
+    "alreadyWork": null,
+    "isOtherActiveWantsExceptByWantId": false,
+    "timeLeft": "23 ч. 48 мин.",
+    "currentUserReviewType": null,
+    "hasPortfolioAvailable": true,
+    "isNeural": false,
+    "orderManagerStatusDone": 5,
+    "availableDurations": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     10,
+     14,
+     21,
+     30,
+     45,
+     60,
+     75,
+     90
+    ],
+    "categoryLinksIdRu": 59,
+    "getPriceThreshold": 4000
+   },
+   {
+    "userAlreadyWork": null,
+    "dateView": null,
+    "id": 3270198,
+    "status": "active",
+    "wantDates": {
+     "dateCreate": "29 октября",
+     "dateActive": "29 октября",
+     "dateExpire": "30 октября",
+     "dateReject": ""
+    },
+    "isWantActive": true,
+    "isWantArchive": false,
+    "altStatusHint": {
+     "color": "blue",
+     "title": "Сбор предложений"
+    },
+    "getReviewCanChange": false,
+    "wantGetSumOrderCount": 0,
+    "projectReviewType": null,
+    "wantUserGetProfileUrl": "https://kwork.ru/user/mkd91",
+    "possiblePriceLimit": 7500,
+    "getWantsActiveCount": "1",
+    "isHigherPrice": true,
+    "category_id": "46",
+    "description": "Нужно настроить таргетинг ВКонтакте на акцию &laquo;Черная пятница&raquo; для сети автомагазинов и пунктов замены масла &laquo;Канистраойл&raquo; / &laquo;Ойл&raquo;.\r\nСообщество: https://vk.ru/kanistraoil\r\nЧто нужно сделать:\r\n&middot; собрать целевые аудитории: гео по филиалам, интересы, подписчики конкурентов, ключевые фразы;\r\n&middot; настроить рекламную кампанию на готовый пост;\r\n&middot; подобрать стратегию, ставки и бюджет;\r\n&middot; запустить кампанию и провести первичную оптимизацию.\r\nВажно: рекламный пост публикуем сами. Нужна только настройка таргетинга.\r\nЧто предоставим:\r\n&middot; ссылку на готовый пост;\r\n&middot; доступ к рекламному кабинету ВК или создадим новый;\r\n&middot; список городов и филиалов;\r\n&middot; бюджет на тест.",
+    "files": [],
+    "kwork_count": 3,
+    "lang": "ru",
+    "name": "Настройка таргетинга ВК для сети точек автомасел",
+    "max_days": "30",
+    "priceLimit": "2500.00",
+    "user": {
+     "USERID": 9846949,
+     "username": "mkd91",
+     "profilepicture": "21/9846949-2.jpg",
+     "profilePictureSrcSet": "https://cdn-edge.kwork.ru/files/avatar/big/21/9846949-2.jpg?ver=1723620936 1x, https://cdn-edge.kwork.ru/files/avatar/big_r/21/9846949-2.jpg?ver=1723620936 2x",
+     "badges": [
+      {
+       "id": 1900632,
+       "user_id": "9846949",
+       "badge_id": "17",
+       "date_create": "2025-10-24 12:06:21",
+       "badge": {
+        "id": 17,
+        "title": "Очень мощный покупатель",
+        "description": "Сделано более 100 покупок",
+        "super_title": "Очень мощный суперпокупатель",
+        "super_description": "Сделано более 100 покупок и не менее 12 покупок за последние 3 месяца.",
+        "payer_level": 5,
+        "is_super_payer": false,
+        "sort": "1"
+       }
+      },
+      {
+       "id": 1569506,
+       "user_id": "9846949",
+       "badge_id": "23",
+       "date_create": "2024-02-28 09:57:24",
+       "badge": {
+        "id": 23,
+        "title": "Суперкомментатор",
+        "description": "За написание подробных отзывов",
+        "super_title": "",
+        "super_description": null,
+        "payer_level": null,
+        "is_super_payer": false,
+        "sort": "1"
+       }
+      }
+     ],
+     "data": {
+      "wants_count": "189",
+      "wants_hired_percent": "73"
+     }
+    },
+    "date_active": "2026-10-29 12:19:30",
+    "date_expire": "2026-10-30 12:19:30",
+    "date_create": "2026-10-29 12:19:30",
+    "views_dirty": "65",
+    "isUserWant": false,
+    "alreadyWork": null,
+    "isOtherActiveWantsExceptByWantId": false,
+    "timeLeft": "23 ч. 47 мин.",
+    "currentUserReviewType": null,
+    "hasPortfolioAvailable": false,
+    "isNeural": false,
+    "orderManagerStatusDone": 5,
+    "availableDurations": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     10,
+     14,
+     21,
+     30,
+     45,
+     60,
+     75,
+     90
+    ],
+    "categoryLinksIdRu": 59,
+    "getPriceThreshold": 4000
+   },
+   {
+    "userAlreadyWork": null,
+    "dateView": null,
+    "id": 3270130,
+    "status": "active",
+    "wantDates": {
+     "dateCreate": "29 октября",
+     "dateActive": "29 октября",
+     "dateExpire": "1 ноября",
+     "dateReject": ""
+    },
+    "isWantActive": true,
+    "isWantArchive": false,
+    "altStatusHint": {
+     "color": "blue",
+     "title": "Сбор предложений"
+    },
+    "getReviewCanChange": false,
+    "wantGetSumOrderCount": 0,
+    "projectReviewType": null,
+    "wantUserGetProfileUrl": "https://kwork.ru/user/kosmovaimsk",
+    "possiblePriceLimit": 150000,
+    "getWantsActiveCount": "1",
+    "isHigherPrice": true,
+    "category_id": "78",
+    "description": "Ищем видеомонтажёра для двух проектов.\r\n1. &laquo;КОД 120&raquo; &mdash; 6 роликов, общий хронометраж до 11 минут.\r\n2. &laquo;Команда 21&raquo; &mdash; имиджевый ролик до 5 минут.\r\nВсе материалы уже готовы! Нужно собрать отдельные видеофрагменты в цельные ролики, сделать красивый динамичный монтаж с качественными переходами, стильными анимациями, графикой и саунд-дизайном.\r\nНужен современный, эффектный и профессиональный монтаж.\r\nСрок сдачи 2 ноября!",
+    "files": [
+     {
+      "FID": 403846921,
+      "USERID": "25510540",
+      "type_entity": 54,
+      "entity_id": "3270130",
+      "fname": "04_КОД_120_ТЗ_видео_ИСПРАВЛЕННОЕ.docx",
+      "s": "ea/07/40/956b33203d",
+      "size": 48331,
+      "time": "1793256017",
+      "lang": "ru",
+      "status": "active",
+      "storage": "local",
+      "miniature_status": "none",
+      "miniature_creating_attempts": "0",
+      "permanent": "0",
+      "mime_type_id": "16",
+      "sort_index": "0",
+      "url": "https://kwork.ru/files/uploaded/ea/07/40/956b33203d/04_%D0%9A%D0%9E%D0%94_120_%D0%A2%D0%97_%D0%B2%D0%B8%D0%B4%D0%B5%D0%BE_%D0%98%D0%A1%D0%9F%D0%A0%D0%90%D0%92%D0%9B%D0%95%D0%9D%D0%9D%D0%9E%D0%95.docx",
+      "file_image_representation": null
+     },
+     {
+      "FID": 403846930,
+      "USERID": "25510540",
+      "type_entity": 54,
+      "entity_id": "3270130",
+      "fname": "TZ_na_videomontazh_Komanda_21_FINAL_30_09.docx",
+      "s": "8f/38/2c/6871562c83",
+      "size": 56898,
+      "time": "1793256032",
+      "lang": "ru",
+      "status": "active",
+      "storage": "s3",
+      "miniature_status": "none",
+      "miniature_creating_attempts": "0",
+      "permanent": "0",
+      "mime_type_id": "16",
+      "sort_index": "0",
+      "url": "https://kwork.ru/files/uploaded/8f/38/2c/6871562c83/TZ_na_videomontazh_Komanda_21_FINAL_30_09.docx",
+      "file_image_representation": null
+     }
+    ],
+    "kwork_count": 15,
+    "lang": "ru",
+    "name": "Смонтировать видео",
+    "max_days": "10",
+    "priceLimit": "50000.00",
+    "user": {
+     "USERID": 25510540,
+     "username": "kosmovaimsk",
+     "profilepicture": "21/25510540-4.jpg",
+     "profilePictureSrcSet": "https://cdn-edge.kwork.ru/files/avatar/big/21/25510540-4.jpg?ver=1793266255 1x, https://cdn-edge.kwork.ru/files/avatar/big_r/21/25510540-4.jpg?ver=1793266255 2x",
+     "badges": [],
+     "data": {
+      "wants_count": "1",
+      "wants_hired_percent": "0"
+     }
+    },
+    "date_active": "2026-10-29 12:18:22",
+    "date_expire": "2026-11-01 09:43:30",
+    "date_create": "2026-10-29 09:40:58",
+    "views_dirty": "318",
+    "isUserWant": false,
+    "alreadyWork": null,
+    "isOtherActiveWantsExceptByWantId": false,
+    "timeLeft": "2 д. 21 ч.",
+    "currentUserReviewType": null,
+    "hasPortfolioAvailable": true,
+    "isNeural": false,
+    "orderManagerStatusDone": 5,
+    "availableDurations": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     10,
+     14,
+     21,
+     30,
+     45,
+     60,
+     75,
+     90
+    ],
+    "categoryLinksIdRu": 59,
+    "getPriceThreshold": 4000
+   },
+   {
+    "userAlreadyWork": null,
+    "dateView": null,
+    "id": 3270196,
+    "status": "active",
+    "wantDates": {
+     "dateCreate": "29 октября",
+     "dateActive": "29 октября",
+     "dateExpire": "30 октября",
+     "dateReject": ""
+    },
+    "isWantActive": true,
+    "isWantArchive": false,
+    "altStatusHint": {
+     "color": "blue",
+     "title": "Сбор предложений"
+    },
+    "getReviewCanChange": false,
+    "wantGetSumOrderCount": 0,
+    "projectReviewType": null,
+    "wantUserGetProfileUrl": "https://kwork.ru/user/leadergreed",
+    "possiblePriceLimit": 4500,
+    "getWantsActiveCount": "1",
+    "isHigherPrice": true,
+    "category_id": "84",
+    "description": "Здравствуйте, нужен пользователь с брокерским счетом в ВТБ, нужен только брокерский отчет! Все личные данные можете удалить, также можете любые данные поменять, нужна структура отчета.\r\nСпасибо!",
+    "files": [],
+    "kwork_count": 0,
+    "lang": "ru",
+    "name": "Обезличенный брокерский отчет ВТБ",
+    "max_days": "10",
+    "priceLimit": "1500.00",
+    "user": {
+     "USERID": 18242386,
+     "username": "leadergreed",
+     "profilepicture": "05/18242386-1.jpg",
+     "profilePictureSrcSet": "https://cdn-edge.kwork.ru/files/avatar/big/05/18242386-1.jpg?ver=1725610755 1x, https://cdn-edge.kwork.ru/files/avatar/big_r/05/18242386-1.jpg?ver=1725610755 2x",
+     "badges": [],
+     "data": {
+      "wants_count": "3",
+      "wants_hired_percent": "100"
+     }
+    },
+    "date_active": "2026-10-29 12:17:45",
+    "date_expire": "2026-10-30 12:08:06",
+    "date_create": "2026-10-29 12:08:06",
+    "views_dirty": "78",
+    "isUserWant": false,
+    "alreadyWork": null,
+    "isOtherActiveWantsExceptByWantId": false,
+    "timeLeft": "23 ч. 36 мин.",
+    "currentUserReviewType": null,
+    "hasPortfolioAvailable": true,
+    "isNeural": false,
+    "orderManagerStatusDone": 5,
+    "availableDurations": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     10,
+     14,
+     21,
+     30,
+     45,
+     60,
+     75,
+     90
+    ],
+    "categoryLinksIdRu": 59,
+    "getPriceThreshold": 4000
+   },
+   {
+    "userAlreadyWork": null,
+    "dateView": null,
+    "id": 3265833,
+    "status": "active",
+    "wantDates": {
+     "dateCreate": "9 октября, 18:55",
+     "dateActive": "29 октября, 12:17",
+     "dateExpire": "30 октября, 12:17",
+     "dateReject": "9 октября, 19:23"
+    },
+    "isWantActive": true,
+    "isWantArchive": false,
+    "altStatusHint": {
+     "color": "blue",
+     "title": "Сбор предложений"
+    },
+    "getReviewCanChange": false,
+    "wantGetSumOrderCount": 0,
+    "projectReviewType": null,
+    "wantUserGetProfileUrl": "https://kwork.ru/user/melurnik",
+    "possiblePriceLimit": 1500,
+    "getWantsActiveCount": "13",
+    "isHigherPrice": true,
+    "category_id": "41",
+    "description": "В 2025 году почтовые сервисы делятся на три основные категории: для массового пользователя- другие не интересуют. При подаче предложения прочу дать краткое или развернутое описание того , что предлагаете и желательно,если Ваша цена отличается от предложенной мной, стоимость. С установкой на сервере(мой).",
+    "files": [],
+    "kwork_count": 1,
+    "lang": "ru",
+    "name": "Создать почтовый сервис",
+    "max_days": "10",
+    "priceLimit": "500.00",
+    "user": {
+     "USERID": 24589192,
+     "username": "melurnik",
+     "profilepicture": "noprofilepicture.gif",
+     "profilePictureSrcSet": "",
+     "badges": [
+      {
+       "id": 2046794,
+       "user_id": "24589192",
+       "badge_id": "14",
+       "date_create": "2026-08-13 10:48:41",
+       "badge": {
+        "id": 14,
+        "title": "Освоившийся покупатель",
+        "description": "Сделано более 7 покупок",
+        "super_title": "Освоившийся суперпокупатель",
+        "super_description": "Сделано более 7 покупок  и не менее 12 покупок за последние 3 месяца.",
+        "payer_level": 2,
+        "is_super_payer": false,
+        "sort": "1"
+       }
+      }
+     ],
+     "data": {
+      "wants_count": "21",
+      "wants_hired_percent": "25"
+     }
+    },
+    "date_active": "2026-10-29 12:17:22",
+    "date_expire": "2026-10-30 12:17:22",
+    "date_create": "2026-10-09 18:55:32",
+    "views_dirty": "9795",
+    "isUserWant": false,
+    "alreadyWork": null,
+    "isOtherActiveWantsExceptByWantId": true,
+    "timeLeft": "23 ч. 45 мин.",
+    "currentUserReviewType": null,
+    "hasPortfolioAvailable": false,
+    "isNeural": false,
+    "orderManagerStatusDone": 5,
+    "availableDurations": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     10,
+     14,
+     21,
+     30,
+     45,
+     60,
+     75,
+     90
+    ],
+    "categoryLinksIdRu": 59,
+    "getPriceThreshold": 4000
+   },
+   {
+    "userAlreadyWork": null,
+    "dateView": null,
+    "id": 3262922,
+    "status": "active",
+    "wantDates": {
+     "dateCreate": "3 октября, 18:56",
+     "dateActive": "29 октября, 12:15",
+     "dateExpire": "30 октября, 12:15",
+     "dateReject": "3 октября, 19:10"
+    },
+    "isWantActive": true,
+    "isWantArchive": false,
+    "altStatusHint": {
+     "color": "blue",
+     "title": "Сбор предложений"
+    },
+    "getReviewCanChange": false,
+    "wantGetSumOrderCount": 0,
+    "projectReviewType": null,
+    "wantUserGetProfileUrl": "https://kwork.ru/user/melurnik",
+    "possiblePriceLimit": 1500,
+    "getWantsActiveCount": "13",
+    "isHigherPrice": true,
+    "category_id": "37",
+    "description": "БЕЗ описания ЧТО сделаете И ЗА сколько-ИГНОР.Зачем нужен \r\nПлатформа решает несколько задач:\r\n* даёт пользователям доступ к приложениям, в том числе к тем, которых нет в зарубежных сторах (например, к банковским и государственным сервисам);\r\n* служит альтернативным каналом дистрибуции для разработчиков;\r\n* поддерживает российские платёжные инструменты&nbsp;&mdash;&nbsp;можно оплачивать подписки и покупки внутри приложений с российских карт.\r\nпредставлено свыше 100&nbsp;тысяч приложений. Среди них:\r\n* мобильные банки (&laquo;СберБанк&nbsp;Онлайн&raquo;, &laquo;ВТБ&nbsp;Онлайн&raquo; и др.);\r\n* государственные сервисы (&laquo;Госуслуги&raquo;, &laquo;Мой налог&raquo;, &laquo;Госключ&raquo; и т.&nbsp;п.);\r\n* маркетплейсы и сервисы доставки (Ozon, Wildberries, &laquo;Самокат&raquo; и др.);\r\n* соцсети и развлекательные сервисы (&laquo;ВКонтакте&raquo;, &laquo;Одноклассники&raquo;, онлайн‑кинотеатры);\r\n* игры и утилиты\r\nОсновные функции для пользователей\r\nПоиск, скачивание и обновление приложений.** Можно искать по категориям или через строку поиска, устанавливать и обновлять софт.\r\n Платежи и подписки. Поддерживаются локальные способы оплаты, есть возможность привязки карты.\r\nПодборки и рекомендации. В разделе &laquo;Интересное&raquo;&nbsp;&mdash;&nbsp;редакционные подборки, новинки и популярное.\r\nАвторизация.Можно войти через VK&nbsp;ID, Sber&nbsp;ID, Tinkoff&nbsp;ID или Yandex&nbsp;ID либо пользоваться магазином без аккаунта (если не нужны платные покупки).\r\nВозможности для разработчиков",
+    "files": [],
+    "kwork_count": 1,
+    "lang": "ru",
+    "name": "Создать Магазин приложений типа rustore.ru",
+    "max_days": "10",
+    "priceLimit": "500.00",
+    "user": {
+     "USERID": 24589192,
+     "username": "melurnik",
+     "profilepicture": "noprofilepicture.gif",
+     "profilePictureSrcSet": "",
+     "badges": [
+      {
+       "id": 2046794,
+       "user_id": "24589192",
+       "badge_id": "14",
+       "date_create": "2026-08-13 10:48:41",
+       "badge": {
+        "id": 14,
+        "title": "Освоившийся покупатель",
+        "description": "Сделано более 7 покупок",
+        "super_title": "Освоившийся суперпокупатель",
+        "super_description": "Сделано более 7 покупок  и не менее 12 покупок за последние 3 месяца.",
+        "payer_level": 2,
+        "is_super_payer": false,
+        "sort": "1"
+       }
+      }
+     ],
+     "data": {
+      "wants_count": "21",
+      "wants_hired_percent": "25"
+     }
+    },
+    "date_active": "2026-10-29 12:15:32",
+    "date_expire": "2026-10-30 12:15:32",
+    "date_create": "2026-10-03 18:56:41",
+    "views_dirty": "13230",
+    "isUserWant": false,
+    "alreadyWork": null,
+    "isOtherActiveWantsExceptByWantId": true,
+    "timeLeft": "23 ч. 43 мин.",
+    "currentUserReviewType": null,
+    "hasPortfolioAvailable": true,
+    "isNeural": false,
+    "orderManagerStatusDone": 5,
+    "availableDurations": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     10,
+     14,
+     21,
+     30,
+     45,
+     60,
+     75,
+     90
+    ],
+    "categoryLinksIdRu": 59,
+    "getPriceThreshold": 4000
+   },
+   {
+    "userAlreadyWork": null,
+    "dateView": null,
+    "id": 3269944,
+    "status": "active",
+    "wantDates": {
+     "dateCreate": "28 октября",
+     "dateActive": "29 октября",
+     "dateExpire": "30 октября",
+     "dateReject": ""
+    },
+    "isWantActive": true,
+    "isWantArchive": false,
+    "altStatusHint": {
+     "color": "blue",
+     "title": "Сбор предложений"
+    },
+    "getReviewCanChange": false,
+    "wantGetSumOrderCount": 0,
+    "projectReviewType": null,
+    "wantUserGetProfileUrl": "https://kwork.ru/user/melurnik",
+    "possiblePriceLimit": 1500,
+    "getWantsActiveCount": "13",
+    "isHigherPrice": true,
+    "category_id": "37",
+    "description": "В предложениях описание И ЦЕНА обязательна.\r\nИнтернет-сервис для размещения объявлений о товарах, недвижимости, вакансиях и резюме на рынке труда, а также услугах, и прочее. Объявления могут размещать как частные лица, так и компании. Товары, предлагаемые к продаже на, могут быть новыми и бывшими в использовании.",
+    "files": [],
+    "kwork_count": 3,
+    "lang": "ru",
+    "name": "Интернет-сервис для размещения объявлений",
+    "max_days": "10",
+    "priceLimit": "500.00",
+    "user": {
+     "USERID": 24589192,
+     "username": "melurnik",
+     "profilepicture": "noprofilepicture.gif",
+     "profilePictureSrcSet": "",
+     "badges": [
+      {
+       "id": 2046794,
+       "user_id": "24589192",
+       "badge_id": "14",
+       "date_create": "2026-08-13 10:48:41",
+       "badge": {
+        "id": 14,
+        "title": "Освоившийся покупатель",
+        "description": "Сделано более 7 покупок",
+        "super_title": "Освоившийся суперпокупатель",
+        "super_description": "Сделано более 7 покупок  и не менее 12 покупок за последние 3 месяца.",
+        "payer_level": 2,
+        "is_super_payer": false,
+        "sort": "1"
+       }
+      }
+     ],
+     "data": {
+      "wants_count": "21",
+      "wants_hired_percent": "25"
+     }
+    },
+    "date_active": "2026-10-29 12:12:37",
+    "date_expire": "2026-10-30 12:12:37",
+    "date_create": "2026-10-28 12:09:43",
+    "views_dirty": "1181",
+    "isUserWant": false,
+    "alreadyWork": null,
+    "isOtherActiveWantsExceptByWantId": true,
+    "timeLeft": "23 ч. 40 мин.",
+    "currentUserReviewType": null,
+    "hasPortfolioAvailable": true,
+    "isNeural": false,
+    "orderManagerStatusDone": 5,
+    "availableDurations": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     10,
+     14,
+     21,
+     30,
+     45,
+     60,
+     75,
+     90
+    ],
+    "categoryLinksIdRu": 59,
+    "getPriceThreshold": 4000
+   },
+   {
+    "userAlreadyWork": null,
+    "dateView": null,
+    "id": 3252074,
+    "status": "active",
+    "wantDates": {
+     "dateCreate": "12 сентября, 15:25",
+     "dateActive": "29 октября, 12:11",
+     "dateExpire": "30 октября, 12:11",
+     "dateReject": "13 сентября, 11:16"
+    },
+    "isWantActive": true,
+    "isWantArchive": false,
+    "altStatusHint": {
+     "color": "blue",
+     "title": "Сбор предложений"
+    },
+    "getReviewCanChange": false,
+    "wantGetSumOrderCount": 0,
+    "projectReviewType": null,
+    "wantUserGetProfileUrl": "https://kwork.ru/user/melurnik",
+    "possiblePriceLimit": 1500,
+    "getWantsActiveCount": "13",
+    "isHigherPrice": true,
+    "category_id": "255",
+    "description": "На сервере было установлена видеомедиаплатформа создатель изчез-возможно ли востановить. Переписка есть. сервера НЕТ\r\nОписание задания:  Приветствую! Требуется специалист для настройки сетевой инфраструктуры на удаленном сервере.",
+    "files": [],
+    "kwork_count": 1,
+    "lang": "ru",
+    "name": "Настройка VPS",
+    "max_days": "10",
+    "priceLimit": "500.00",
+    "user": {
+     "USERID": 24589192,
+     "username": "melurnik",
+     "profilepicture": "noprofilepicture.gif",
+     "profilePictureSrcSet": "",
+     "badges": [
+      {
+       "id": 2046794,
+       "user_id": "24589192",
+       "badge_id": "14",
+       "date_create": "2026-08-13 10:48:41",
+       "badge": {
+        "id": 14,
+        "title": "Освоившийся покупатель",
+        "description": "Сделано более 7 покупок",
+        "super_title": "Освоившийся суперпокупатель",
+        "super_description": "Сделано более 7 покупок  и не менее 12 покупок за последние 3 месяца.",
+        "payer_level": 2,
+        "is_super_payer": false,
+        "sort": "1"
+       }
+      }
+     ],
+     "data": {
+      "wants_count": "21",
+      "wants_hired_percent": "25"
+     }
+    },
+    "date_active": "2026-10-29 12:11:14",
+    "date_expire": "2026-10-30 12:11:14",
+    "date_create": "2026-09-12 15:25:04",
+    "views_dirty": "9078",
+    "isUserWant": false,
+    "alreadyWork": null,
+    "isOtherActiveWantsExceptByWantId": true,
+    "timeLeft": "23 ч. 39 мин.",
+    "currentUserReviewType": null,
+    "hasPortfolioAvailable": false,
+    "isNeural": false,
+    "orderManagerStatusDone": 5,
+    "availableDurations": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     10,
+     14,
+     21,
+     30,
+     45,
+     60,
+     75,
+     90
+    ],
+    "categoryLinksIdRu": 59,
+    "getPriceThreshold": 4000
+   }
+  ],
+  "wantsFromAllRubrics": [],
+  "attributesCount": [],
+  "counts": {
+   "kworks_filter_id_0": "177",
+   "kworks_filter_id_1": "66",
+   "kworks_filter_id_2": "38",
+   "kworks_filter_id_3": "34",
+   "kworks_filter_id_4": "130",
+   "prices_filter_id_0": "26",
+   "prices_filter_id_1": "99",
+   "prices_filter_id_2": "98",
+   "prices_filter_id_3": "112",
+   "prices_filter_id_4": "167",
+   "attrs": [],
+   "category_id_20": "1",
+   "category_id_23": "4",
+   "category_id_24": "8",
+   "category_id_25": "9",
+   "category_id_27": "7",
+   "category_id_28": "7",
+   "category_id_35": "2",
+   "category_id_37": "17",
+   "category_id_38": "14",
+   "category_id_39": "5",
+   "category_id_40": "1",
+   "category_id_41": "40",
+   "category_id_43": "1",
+   "category_id_44": "0",
+   "category_id_46": "29",
+   "category_id_47": "8",
+   "category_id_49": "9",
+   "category_id_55": "6",
+   "category_id_56": "0",
+   "category_id_59": "4",
+   "category_id_63": "6",
+   "category_id_64": "3",
+   "category_id_65": "16",
+   "category_id_68": "9",
+   "category_id_71": "3",
+   "category_id_72": "5",
+   "category_id_73": "5",
+   "category_id_74": "1",
+   "category_id_75": "0",
+   "category_id_76": "11",
+   "category_id_77": "0",
+   "category_id_78": "24",
+   "category_id_79": "2",
+   "category_id_80": "4",
+   "category_id_81": "15",
+   "category_id_84": "55",
+   "category_id_90": "3",
+   "category_id_106": "3",
+   "category_id_108": "4",
+   "category_id_112": "9",
+   "category_id_113": "2",
+   "category_id_114": "1",
+   "category_id_235": "0",
+   "category_id_250": "6",
+   "category_id_255": "1",
+   "category_id_262": "11",
+   "category_id_265": "3",
+   "category_id_270": "0",
+   "category_id_272": "1",
+   "category_id_273": "13",
+   "category_id_286": "5",
+   "category_id_300": "18",
+   "category_id_303": "0",
+   "category_id_306": "5",
+   "category_id_7": 61,
+   "category_id_15": 60,
+   "category_id_5": 8,
+   "category_id_11": 99,
+   "category_id_17": 26,
+   "category_id_45": 61,
+   "category_id_83": 101
+  },
+  "favouriteCategories": [],
+  "favouriteCategoriesCount": [],
+  "filter": {
+   "price_from": null,
+   "price_to": null,
+   "hiring_from": null,
+   "kworks_filters": null,
+   "prices_filters": null,
+   "keyword": null
+  },
+  "filters": {
+   "by_kworks": [
+    {
+     "id": 0,
+     "name": "До 5",
+     "boundaries": {
+      "from": null,
+      "to": 5
+     }
+    },
+    {
+     "id": 1,
+     "name": "От 5 до 10",
+     "boundaries": {
+      "from": 5,
+      "to": 10
+     }
+    },
+    {
+     "id": 2,
+     "name": "От 10 до 15",
+     "boundaries": {
+      "from": 10,
+      "to": 15
+     }
+    },
+    {
+     "id": 3,
+     "name": "От 15 до 20",
+     "boundaries": {
+      "from": 15,
+      "to": 20
+     }
+    },
+    {
+     "id": 4,
+     "name": "От 20",
+     "boundaries": {
+      "from": 20,
+      "to": null
+     }
+    }
+   ],
+   "by_budget": [
+    {
+     "id": 0,
+     "name": "До 1 000 <span class=\"rouble\">₽</span>",
+     "boundaries": {
+      "from": null,
+      "to": 1000
+     }
+    },
+    {
+     "id": 1,
+     "name": "От 1 000 <span class=\"rouble\">₽</span> до 3 000 <span class=\"rouble\">₽</span>",
+     "boundaries": {
+      "from": 1000,
+      "to": 3000
+     }
+    },
+    {
+     "id": 2,
+     "name": "От 3 000 <span class=\"rouble\">₽</span> до 10 000 <span class=\"rouble\">₽</span>",
+     "boundaries": {
+      "from": 3000,
+      "to": 10000
+     }
+    },
+    {
+     "id": 3,
+     "name": "От 10 000 <span class=\"rouble\">₽</span> до 30 000 <span class=\"rouble\">₽</span>",
+     "boundaries": {
+      "from": 10000,
+      "to": 30000
+     }
+    },
+    {
+     "id": 4,
+     "name": "От 30 000 <span class=\"rouble\">₽</span>",
+     "boundaries": {
+      "from": 30000,
+      "to": null
+     }
+    }
+   ]
+  }
+ }
+}

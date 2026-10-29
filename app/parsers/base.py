@@ -58,6 +58,28 @@ class HttpClient:
                     await asyncio.sleep(1.5 * attempt)
         raise FetchError(f"failed to fetch {url}: {last_error}")
 
+    async def post_json(
+        self,
+        url: str,
+        data: dict[str, Any] | None = None,
+        headers: dict[str, str] | None = None,
+        retries: int = 3,
+    ) -> Any:
+        if self._session is None:
+            raise FetchError("HTTP client is not started")
+        last_error: Exception | None = None
+        for attempt in range(1, retries + 1):
+            try:
+                async with self._session.post(url, data=data, headers=headers) as response:
+                    if response.status >= 400:
+                        raise FetchError(f"HTTP {response.status} for {url}")
+                    return await response.json(content_type=None)
+            except (aiohttp.ClientError, asyncio.TimeoutError, ValueError, FetchError) as exc:
+                last_error = exc
+                if attempt < retries:
+                    await asyncio.sleep(1.5 * attempt)
+        raise FetchError(f"failed to fetch {url}: {last_error}")
+
 
 class BaseParser(ABC):
     source: str = "base"

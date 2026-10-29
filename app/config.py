@@ -67,7 +67,7 @@ DEFAULT_STOPWORDS = [
     "копирайт", "статьи", "смм", "таргет", "бухгалтер", "юридическ",
     "курьер", "оператор", "инфографика", "логотип", "нейминг", "презентац",
     "тестирование", "тестировщик", "qa", "аудит", "вакансия", "резюме", "оклад",
-    "полная занятость", "отзывы",
+    "полная занятость", "отзывы", "обзвон", "холодн", "продаж", "звонк",
 ]
 
 
@@ -98,6 +98,9 @@ class Settings:
     freelance_ru_enabled: bool = True
     freelance_ru_url: str = "https://freelance.ru/projects/"
     freelance_ru_pages: int = 2
+    kwork_enabled: bool = True
+    kwork_url: str = "https://kwork.ru/projects"
+    kwork_pages: int = 2
 
     # Selection
     keywords: tuple[str, ...] = tuple(DEFAULT_KEYWORDS)
@@ -160,6 +163,9 @@ def load_settings() -> Settings:
         freelance_ru_enabled=_bool("FREELANCE_RU_ENABLED", True),
         freelance_ru_url=_env("FREELANCE_RU_URL", "https://freelance.ru/projects/"),
         freelance_ru_pages=_int("FREELANCE_RU_PAGES", 2),
+        kwork_enabled=_bool("KWORK_ENABLED", True),
+        kwork_url=_env("KWORK_URL", "https://kwork.ru/projects"),
+        kwork_pages=_int("KWORK_PAGES", 2),
         keywords=tuple(_json_list("KEYWORDS_JSON", DEFAULT_KEYWORDS)),
         stopwords=tuple(_json_list("STOPWORDS_JSON", DEFAULT_STOPWORDS)),
         min_score=_int("MIN_SCORE", 48),

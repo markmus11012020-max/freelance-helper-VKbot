@@ -10,8 +10,8 @@
 |---|---|---|
 | FL.ru | ✅ | RSS `https://www.fl.ru/rss/all.xml` + страница заказа для бюджета |
 | freelance.ru | ✅ | HTML-лента `https://freelance.ru/task?page=N`, бюджет прямо в карточке |
+| Kwork | ✅ | внутренний JSON `POST https://kwork.ru/projects` (без логина) |
 | Habr Freelance | ❌ | Сервис закрыт навсегда (HTTP 410, 29.10.2026) |
-| Kwork | ⚠️ | Лента проектов рендерится JS, нужен внутренний API — в планах |
 | Weblancer | ⚠️ | Отдаёт 403 автоматическим клиентам, нужен другой способ доступа |
 | Freelancehunt | ❌ | 403 для ботов |
 | Workzilla | ❌ | Сайт недоступен |
@@ -93,7 +93,7 @@ Copy-Item .env.example .env
 | `DATABASE_PATH` | путь к SQLite (в Docker/Amvera `/data/bot.db`) |
 | `SCAN_INTERVAL_SECONDS` | период опроса бирж, по умолчанию 600 |
 | `DRY_RUN=1` | не отправлять в VK |
-| `FL_RU_ENABLED`, `FREELANCE_RU_ENABLED` | включение источников |
+| `FL_RU_ENABLED`, `FREELANCE_RU_ENABLED`, `KWORK_ENABLED` | включение источников |
 | `KEYWORDS_JSON`, `STOPWORDS_JSON` | списки в JSON-массиве |
 | `MIN_SCORE` | порог отправки (по умолчанию 48) |
 | `BUDGET_MIN_RUB` | «жирный» бюджет, по умолчанию 15 000 ₽ |
@@ -178,13 +178,15 @@ app/
   health.py        /healthz
   backup.py        ротация бэкапов SQLite
   vk/              client, longpoll, handlers
-  parsers/         fl_ru, freelance_ru
+  parsers/         fl_ru, freelance_ru, kwork
 scripts/           check_llm, check_vk
 tests/             фикстуры и unit-тесты
 ```
 
 ## Ограничения и заметки
 
+- Kwork использует внутренний JSON-эндпоинт (не официальный API): если он изменится,
+  парсер нужно будет поправить. Запросы идут с паузами, без авторизации.
 - Парсинг публичных страниц — на свой риск; запросы идут с паузами 1 с, без логина
   и обхода капчи. Если биржа предложит официальный API — лучше перейти на него.
 - Бюджет «по договорённости» не отсекается: такие заказы может вытянуть LLM.

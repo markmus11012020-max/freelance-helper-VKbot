@@ -61,6 +61,18 @@ def test_old_cheap_order_is_filtered() -> None:
     assert flt.score(order).score < load_settings().min_score
 
 
+def test_sales_script_is_not_a_dev_order() -> None:
+    flt = OrderFilter(load_settings())
+    order = make_order(
+        title="Обзвон базы потенциальных клиентов",
+        description="Нужен скрипт обзвона и холодные звонки, выгрузка в Google Sheets.",
+        budget_text="15 000 ₽",
+        budget_min=15000,
+        budget_unit="project",
+    )
+    assert flt.score(order).score < load_settings().min_score
+
+
 def test_prefilter_rejects_unrelated() -> None:
     flt = OrderFilter(load_settings())
     order = make_order(
