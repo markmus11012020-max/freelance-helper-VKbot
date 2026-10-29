@@ -118,7 +118,8 @@ class Notifier:
     async def send_order(self, row: dict[str, Any], peer_id: int) -> None:
         text = self.build_card(row)
         order_id = int(row.get("order_id") or row.get("id") or 0)
-        random_id = VkClient.random_id_for(order_id, peer_id)
+        delivery_id = int(row.get("delivery_id") or 0)
+        random_id = VkClient.random_id_for(order_id, peer_id, delivery_id)
         try:
             await self.vk.send_message(
                 peer_id,
@@ -153,7 +154,7 @@ class Notifier:
         for delivery in deliveries:
             peer_id = int(delivery["peer_id"])
             order_id = int(delivery["order_id"])
-            row = {**delivery, "id": order_id}
+            row = {**delivery, "id": order_id, "delivery_id": int(delivery["id"])}
             try:
                 await self.send_order(row, peer_id)
             except VkApiError as exc:

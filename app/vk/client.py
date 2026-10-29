@@ -184,9 +184,13 @@ class VkClient:
         return peer_id >= 2_000_000_000
 
     @staticmethod
-    def random_id_for(order_id: int, peer_id: int) -> int:
-        # Stable per (order, peer): a retry of the same delivery is idempotent.
-        value = zlib.crc32(f"{order_id}:{peer_id}".encode()) % MAX_RANDOM_ID
+    def random_id_for(order_id: int, peer_id: int, delivery_id: int = 0) -> int:
+        # Stable per (order, peer, delivery): a retry of the same delivery is
+        # idempotent, while a later re-send gets a new message instead of
+        # colliding with a previously used random_id.
+        value = zlib.crc32(
+            f"{order_id}:{peer_id}:{delivery_id}".encode()
+        ) % MAX_RANDOM_ID
         return value or 1
 
     @staticmethod

@@ -40,6 +40,16 @@ def test_card_contains_key_fields() -> None:
     assert len(keyboard["buttons"][0]) == 2
 
 
+def test_random_id_depends_on_delivery() -> None:
+    from app.vk.client import VkClient
+
+    first = VkClient.random_id_for(7, 2_000_000_001, 1)
+    retry = VkClient.random_id_for(7, 2_000_000_001, 1)
+    later = VkClient.random_id_for(7, 2_000_000_001, 2)
+    assert first == retry
+    assert first != later
+
+
 def test_dry_run_delivery_is_noop() -> None:
     import asyncio
 
