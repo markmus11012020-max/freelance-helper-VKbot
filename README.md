@@ -95,7 +95,7 @@ Copy-Item .env.example .env
 | `DRY_RUN=1` | не отправлять в VK |
 | `FL_RU_ENABLED`, `FREELANCE_RU_ENABLED`, `KWORK_ENABLED` | включение источников |
 | `KEYWORDS_JSON`, `STOPWORDS_JSON` | списки в JSON-массиве |
-| `MIN_SCORE` | порог отправки (по умолчанию 48) |
+| `MIN_SCORE` | порог отправки (по умолчанию 40) |
 | `BUDGET_MIN_RUB` | «жирный» бюджет, по умолчанию 15 000 ₽ |
 | `MAX_ORDERS_PER_CYCLE` | максимум карточек и LLM-вызовов за цикл |
 | `OPENAI_BASE_URL` | по умолчанию `https://api.aitunnel.ru/v1` |
