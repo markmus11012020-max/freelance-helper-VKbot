@@ -23,6 +23,7 @@ from app.notifier import Notifier
 from app.parsers import build_parsers
 from app.parsers.base import HttpClient
 from app.repo_memory import RepoMemory
+from app.skills import SkillCatalog
 from app.vk.client import VkClient
 from app.vk.handlers import BotHandlers
 from app.vk.longpoll import VkLongPoll
@@ -100,14 +101,32 @@ async def run() -> None:
     await repo_memory.load()
     memory = MemoryStore(settings, db)
     await memory.cleanup()
+    skill_catalog = SkillCatalog(settings, db)
+    await skill_catalog.ensure_backfilled()
+    await skill_catalog.refresh()
+    order_filter = OrderFilter(
+        settings, skill_catalog.keywords, skill_catalog.disabled_stopwords
+    )
     llm = LlmClient(settings, db)
     drafts = DraftService(settings, db, llm, repo_memory, memory)
-    github_sync = GitHubSync(settings, db, llm, embeddings, repo_memory) if settings.github_configured else None
+
+    async def refresh_skills() -> None:
+        await skill_catalog.refresh()
+        order_filter.refresh(
+            skill_catalog.keywords, skill_catalog.disabled_stopwords
+        )
+
+    github_sync = (
+        GitHubSync(
+            settings, db, llm, embeddings, repo_memory, on_sync=refresh_skills
+        )
+        if settings.github_configured
+        else None
+    )
 
     http = HttpClient(settings)
     await http.start()
     parsers = build_parsers(settings, http)
-    order_filter = OrderFilter(settings)
     vk = VkClient(settings)
     notifier = Notifier(settings, db, vk)
     monitor = Monitor(settings, db, parsers, order_filter, llm, notifier)

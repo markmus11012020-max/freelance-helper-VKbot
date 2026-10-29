@@ -111,9 +111,9 @@ Copy-Item .env.example .env
 | `DRY_RUN=1` | не отправлять в VK |
 | `FL_RU_ENABLED`, `FREELANCE_RU_ENABLED`, `KWORK_ENABLED` | включение источников |
 | `KEYWORDS_JSON`, `STOPWORDS_JSON` | списки в JSON-массиве |
-| `MIN_SCORE` | порог отправки (по умолчанию 40) |
+| `MIN_SCORE` | порог отправки (по умолчанию 25) |
 | `BUDGET_MIN_RUB` | «жирный» бюджет, по умолчанию 15 000 ₽ |
-| `MAX_ORDERS_PER_CYCLE` | максимум карточек и LLM-вызовов за цикл |
+| `MAX_ORDERS_PER_CYCLE` | максимум карточек и LLM-вызовов за цикл (по умолчанию 15) |
 | `OPENAI_BASE_URL` | по умолчанию `https://api.aitunnel.ru/v1` |
 | `OPENAI_API_KEY` | ключ провайдера |
 | `OPENAI_MODEL` | по умолчанию `deepseek-v4.1-flash-1017` |
@@ -289,17 +289,21 @@ docker compose logs -f
 
 ## Как работает отбор
 
-1. **Префильтр** — в заголовке/описании есть ключевое слово (стемминг: «скрипта» =
-   «скрипт», «автоматизации» = «автоматизация»).
+1. **Префильтр** — в заголовке/описании есть ключевое слово из `KEYWORDS_JSON`
+   **или компетенция, найденная в репозиториях**: языки, темы, README, манифесты и
+   расширения файлов автоматически добавляются в словарь.
 2. **Правила** — совпадения ключей, бюджет (проект или ставка/час), свежесть,
-   штрафы за стоп-слова (1С, WordPress, SEO, крипта, дизайн, вёрстка, QA, аудит).
+   штрафы за стоп-слова. Если компетенция есть в репозиториях, конфликтующее
+   стоп-слово отключается: например, для HTML/TypeScript не блокируются
+   «вёрстка» и «фронтенд», для крипто-репозитория — «крипта».
 3. **LLM-реранкер** — оценивает 0–100 и объясняет причину; финальная оценка =
    60% LLM + 40% правил.
-4. **Порог** — в беседу уходит только `score >= MIN_SCORE` и не больше
-   `MAX_ORDERS_PER_CYCLE` за цикл.
+4. **Порог** — в беседу уходит только `score >= MIN_SCORE` (по умолчанию 25)
+   и не больше `MAX_ORDERS_PER_CYCLE` за цикл.
 
 Тюнинг: правь `KEYWORDS_JSON`, `STOPWORDS_JSON`, `MIN_SCORE` в env и смотри
-`/last`, чтобы понять, что проходит.
+`/last`, чтобы понять, что проходит. Компетенции обновляются после каждой
+синхронизации GitHub; вручную можно запустить `python -m scripts.rescore`.
 
 ## Структура проекта
 
@@ -313,6 +317,7 @@ app/
   embeddings.py    эмбеддинги, батчи, ретраи, дневной лимит
   repo_memory.py   векторный + лексический поиск по проектам
   github_sync.py   GitHub API, tar.gz, фильтрация, чанки, индексация
+  skills.py        компетенции из репозиториев и динамические стоп-слова
   memory.py        краткосрочная память и долгосрочные пожелания
   drafts.py        извлечение имени, приветствие, RAG-контекст
   monitor.py       цикл опроса и отбора
@@ -322,7 +327,8 @@ app/
   telegram_probe.py проверка доступности Telegram Bot API
   vk/              client, longpoll, handlers
   parsers/         fl_ru, freelance_ru, kwork
-scripts/           check_llm, check_vk, check_github, check_telegram, sync_repos
+scripts/           check_llm, check_vk, check_github, check_telegram, sync_repos,
+                   backfill_deliveries, rescore
 tests/             фикстуры и unit-тесты
 ```
 

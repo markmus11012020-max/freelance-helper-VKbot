@@ -5,7 +5,14 @@ from datetime import datetime, timezone
 
 from app.config import Settings
 from app.models import ParsedOrder, ScoreResult
-from app.textutil import format_money, keyword_regex, parse_budget, stem_text, truncate
+from app.textutil import (
+    format_money,
+    keyword_regex,
+    normalize,
+    parse_budget,
+    stem_text,
+    truncate,
+)
 
 _HARD_RED_FLAGS = (
     "бесплатно",
@@ -25,20 +32,44 @@ class OrderFilter:
     applied later, only to candidates that survive this stage.
     """
 
-    def __init__(self, settings: Settings) -> None:
+    def __init__(
+        self,
+        settings: Settings,
+        extra_keywords: list[str] | tuple[str, ...] = (),
+        disabled_stopwords: set[str] | tuple[str, ...] = (),
+    ) -> None:
         self.settings = settings
-        self._keywords = [(kw, keyword_regex(kw)) for kw in settings.keywords]
-        self._stopwords = [(sw, keyword_regex(sw)) for sw in settings.stopwords]
+        self._keywords: list[tuple[str, re.Pattern[str]]] = []
+        self._skill_keywords: list[tuple[str, re.Pattern[str]]] = []
+        self._stopwords: list[tuple[str, re.Pattern[str]]] = []
+        self.refresh(extra_keywords, disabled_stopwords)
+
+    def refresh(
+        self,
+        extra_keywords: list[str] | tuple[str, ...] = (),
+        disabled_stopwords: set[str] | tuple[str, ...] = (),
+    ) -> None:
+        skill_keywords = list(dict.fromkeys(str(item) for item in extra_keywords if item))
+        disabled = {normalize(item) for item in disabled_stopwords if item}
+        all_keywords = list(dict.fromkeys([*self.settings.keywords, *skill_keywords]))
+        stopwords = [
+            item for item in self.settings.stopwords if normalize(item) not in disabled
+        ]
+        self._keywords = [(kw, keyword_regex(kw)) for kw in all_keywords]
+        self._skill_keywords = [(kw, keyword_regex(kw)) for kw in skill_keywords]
+        self._stopwords = [(sw, keyword_regex(sw)) for sw in stopwords]
 
     def prefilter(self, order: ParsedOrder) -> bool:
         haystack = stem_text(f"{order.title} {order.description}")
         if not haystack:
             return False
         if any(regex.search(haystack) for _, regex in self._stopwords):
-            # Still allow orders that have strong keywords and no explicit
-            # stopword in the title: the full scorer decides.
+            # A repository competence in the description is enough to let the
+            # order reach the LLM; an explicit keyword in the title also works.
             title = stem_text(order.title)
-            return any(regex.search(title) for _, regex in self._keywords)
+            if any(regex.search(title) for _, regex in self._keywords):
+                return True
+            return any(regex.search(haystack) for _, regex in self._skill_keywords)
         return any(regex.search(haystack) for _, regex in self._keywords)
 
     def score(self, order: ParsedOrder) -> ScoreResult:

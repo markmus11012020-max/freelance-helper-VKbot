@@ -8,6 +8,7 @@ import re
 import tarfile
 import time
 from collections import deque
+from collections.abc import Awaitable, Callable
 from datetime import datetime, timezone
 from typing import Any
 from urllib.parse import quote
@@ -19,6 +20,7 @@ from app.db import Database
 from app.embeddings import EmbeddingClient, EmbeddingError
 from app.llm import LlmClient
 from app.repo_memory import RepoMemory
+from app.skills import extract_repo_skills
 from app.textutil import truncate
 
 log = logging.getLogger(__name__)
@@ -448,6 +450,8 @@ class RepoIndexer:
             len(documents),
             status="indexed" if embedded else "partial",
         )
+        skills = extract_repo_skills(repo, files, extra_text=summary)
+        await self.db.repo_skills_replace(int(repo["repo_id"]), skills)
         self.memory.mark_dirty()
         log.info(
             "indexed %s: %s files, %s chunks, commit=%s%s",
@@ -496,6 +500,7 @@ class GitHubSync:
         embeddings: EmbeddingClient,
         memory: RepoMemory,
         client: GitHubClient | None = None,
+        on_sync: Callable[[], Awaitable[None]] | None = None,
     ) -> None:
         self.settings = settings
         self.db = db
@@ -503,6 +508,7 @@ class GitHubSync:
         self.embeddings = embeddings
         self.memory = memory
         self.client = client or GitHubClient(settings)
+        self.on_sync = on_sync
         self.indexer = RepoIndexer(settings, db, llm, embeddings, memory)
         self._lock = asyncio.Lock()
         self._last_result: dict[str, Any] = {}
@@ -613,6 +619,11 @@ class GitHubSync:
             result["last_sync"] = now
             self._last_result = result
             self.memory.mark_dirty()
+            if self.on_sync is not None:
+                try:
+                    await self.on_sync()
+                except Exception:
+                    log.exception("post-sync callback failed")
             log.info("GitHub sync done: %s", result)
             return result
 

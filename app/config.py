@@ -116,8 +116,8 @@ class Settings:
     # Selection
     keywords: tuple[str, ...] = tuple(DEFAULT_KEYWORDS)
     stopwords: tuple[str, ...] = tuple(DEFAULT_STOPWORDS)
-    min_score: int = 40
-    max_orders_per_cycle: int = 10
+    min_score: int = 25
+    max_orders_per_cycle: int = 15
     budget_min_rub: int = 15000
 
     # LLM (OpenAI-compatible, e.g. aitunnel)
@@ -241,8 +241,8 @@ def load_settings() -> Settings:
         kwork_pages=_int("KWORK_PAGES", 3),
         keywords=tuple(_json_list("KEYWORDS_JSON", DEFAULT_KEYWORDS)),
         stopwords=tuple(_json_list("STOPWORDS_JSON", DEFAULT_STOPWORDS)),
-        min_score=_int("MIN_SCORE", 40),
-        max_orders_per_cycle=_int("MAX_ORDERS_PER_CYCLE", 10),
+        min_score=_int("MIN_SCORE", 25),
+        max_orders_per_cycle=_int("MAX_ORDERS_PER_CYCLE", 15),
         budget_min_rub=_int("BUDGET_MIN_RUB", 15000),
         openai_base_url=_env("OPENAI_BASE_URL", "https://api.aitunnel.ru/v1"),
         openai_api_key=_env("OPENAI_API_KEY"),

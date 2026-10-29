@@ -131,6 +131,13 @@ CREATE TABLE IF NOT EXISTS repo_documents (
 CREATE INDEX IF NOT EXISTS idx_repo_documents_repo ON repo_documents(repo_id);
 CREATE INDEX IF NOT EXISTS idx_repo_documents_kind ON repo_documents(kind);
 
+CREATE TABLE IF NOT EXISTS repo_skills (
+    repo_id INTEGER NOT NULL,
+    skill TEXT NOT NULL,
+    UNIQUE(repo_id, skill)
+);
+CREATE INDEX IF NOT EXISTS idx_repo_skills_skill ON repo_skills(skill);
+
 CREATE TABLE IF NOT EXISTS order_meta (
     order_id INTEGER PRIMARY KEY,
     client_name TEXT NOT NULL DEFAULT '',
@@ -697,10 +704,41 @@ class Database:
             ).fetchall()
         return [dict(row) for row in rows]
 
+    async def repo_documents_for_skills(self) -> list[dict[str, Any]]:
+        async with self._lock:
+            assert self._conn is not None
+            rows = self._conn.execute(
+                """
+                SELECT repo_id, repo_full_name, kind, path, content
+                FROM repo_documents ORDER BY repo_id, id
+                """
+            ).fetchall()
+        return [dict(row) for row in rows]
+
+    async def repo_skills_replace(self, repo_id: int, skills: list[str]) -> None:
+        async with self._lock:
+            with self._cursor() as cur:
+                cur.execute("DELETE FROM repo_skills WHERE repo_id = ?", (repo_id,))
+                for skill in sorted(set(skills)):
+                    if skill:
+                        cur.execute(
+                            "INSERT OR IGNORE INTO repo_skills (repo_id, skill) VALUES (?, ?)",
+                            (repo_id, skill[:80]),
+                        )
+
+    async def repo_skills_all(self) -> list[str]:
+        async with self._lock:
+            assert self._conn is not None
+            rows = self._conn.execute(
+                "SELECT DISTINCT skill FROM repo_skills ORDER BY skill"
+            ).fetchall()
+        return [str(row["skill"]) for row in rows]
+
     async def repo_mark_missing(self, repo_id: int) -> None:
         async with self._lock:
             with self._cursor() as cur:
                 cur.execute("DELETE FROM repo_documents WHERE repo_id = ?", (repo_id,))
+                cur.execute("DELETE FROM repo_skills WHERE repo_id = ?", (repo_id,))
                 cur.execute(
                     """
                     UPDATE repo_sources SET status = 'missing', chunks = 0,
