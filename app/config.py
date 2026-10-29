@@ -81,6 +81,15 @@ class Settings:
     vk_group_screen_name: str = ""
     admin_user_ids: frozenset[int] = field(default_factory=frozenset)
 
+    # Telegram (probe now, full channel later)
+    telegram_enabled: bool = True
+    telegram_bot_token: str = ""
+    telegram_admin_user_ids: frozenset[int] = field(default_factory=frozenset)
+    telegram_chat_id: int = 0
+    telegram_proxy: str = ""
+    telegram_api_url: str = "https://api.telegram.org"
+    telegram_poll_timeout: int = 25
+
     # Runtime
     database_path: str = "data/bot.db"
     scan_interval_seconds: int = 600
@@ -123,6 +132,10 @@ class Settings:
         return bool(self.vk_group_token and self.vk_group_id)
 
     @property
+    def telegram_configured(self) -> bool:
+        return bool(self.telegram_bot_token)
+
+    @property
     def llm_configured(self) -> bool:
         return self.llm_enabled and bool(self.openai_api_key)
 
@@ -142,6 +155,12 @@ def load_settings() -> Settings:
             admin_ids.add(int(raw))
 
     default_db = "/data/bot.db" if Path("/data").is_dir() else "data/bot.db"
+    telegram_admin_ids = set()
+    for raw in (_env("TELEGRAM_ADMIN_USER_IDS") + "," + _env("TELEGRAM_ADMIN_USER_ID")).split(","):
+        raw = raw.strip()
+        if raw.isdigit():
+            telegram_admin_ids.add(int(raw))
+
     return Settings(
         vk_group_token=_env("VK_GROUP_TOKEN"),
         vk_group_id=_int("VK_GROUP_ID", 0),
@@ -149,6 +168,13 @@ def load_settings() -> Settings:
         vk_chat_peer_id=_int("VK_CHAT_PEER_ID", 0),
         vk_group_screen_name=_env("VK_GROUP_SCREEN_NAME"),
         admin_user_ids=frozenset(admin_ids),
+        telegram_enabled=_bool("TELEGRAM_ENABLED", True),
+        telegram_bot_token=_env("TELEGRAM_BOT_TOKEN"),
+        telegram_admin_user_ids=frozenset(telegram_admin_ids),
+        telegram_chat_id=_int("TELEGRAM_CHAT_ID", 0),
+        telegram_proxy=_env("TELEGRAM_PROXY"),
+        telegram_api_url=_env("TELEGRAM_API_URL", "https://api.telegram.org").rstrip("/"),
+        telegram_poll_timeout=_int("TELEGRAM_POLL_TIMEOUT", 25),
         database_path=_env("DATABASE_PATH", default_db) or default_db,
         scan_interval_seconds=_int("SCAN_INTERVAL_SECONDS", 600),
         request_timeout_seconds=_int("REQUEST_TIMEOUT_SECONDS", 25),

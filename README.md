@@ -106,6 +106,47 @@ Copy-Item .env.example .env
 Модель и base URL меняются только через env — код править не нужно. Любой
 OpenAI-совместимый провайдер подойдёт.
 
+## Проверка Telegram до разработки (probe)
+
+Полный Telegram-модуль ещё не написан. Сначала проверяем, доступен ли Bot API из Amvera
+напрямую — VPN на домашнем ПК для этого не подходит.
+
+**Локально (с VPN):**
+
+```powershell
+$env:TELEGRAM_BOT_TOKEN="123456:AA..."
+.\.venv\Scripts\python -m scripts.check_telegram
+```
+
+**На Amvera (главная проверка):**
+
+1. Создай отдельный проект `freelance-tg-probe` (Docker, этот же репозиторий).
+2. Переменные окружения:
+   ```
+   PROBE_MODE=telegram
+   TELEGRAM_BOT_TOKEN=<токен от BotFather>
+   TELEGRAM_PROXY=            # пусто = прямой доступ
+   ```
+3. Открой `https://<проект>.amvera.io/healthz`. Ответ:
+   ```json
+   {
+     "ok": true,
+     "route": "direct",
+     "success": 3,
+     "attempts": [{"attempt": 1, "ok": true, "latency_ms": 420}],
+     "poll": {"ok": true, "updates": 1, "last_update_id": 101},
+     "egress_ip": "203.0.113.10"
+   }
+   ```
+4. Отправь боту `/start` и обнови страницу: `poll.updates` должен вырасти.
+5. Быстрая проверка без getUpdates: `/healthz?attempts=1&poll=0`.
+
+**Критерии go/no-go:** 5/5 успешных `getMe` с задержкой < 3 с, `getUpdates` получает
+сообщение < 10 с, 15 минут опроса с успехом > 95%. Если Amvera не видит Telegram
+напрямую — модуль туда не поставить без прокси или зарубежного VPS.
+
+После проверки убери `PROBE_MODE` из env проекта.
+
 ## Деплой на Amvera
 
 1. Зарегистрируйся на `cloud.amvera.ru`, создай проект **Docker**.
@@ -177,9 +218,10 @@ app/
   notifier.py      карточки, клавиатура, fan-out
   health.py        /healthz
   backup.py        ротация бэкапов SQLite
+  telegram_probe.py проверка доступности Telegram Bot API
   vk/              client, longpoll, handlers
   parsers/         fl_ru, freelance_ru, kwork
-scripts/           check_llm, check_vk
+scripts/           check_llm, check_vk, check_telegram
 tests/             фикстуры и unit-тесты
 ```
 

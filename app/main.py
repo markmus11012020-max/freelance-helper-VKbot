@@ -58,6 +58,13 @@ async def run() -> None:
     setup_logging(settings.log_level)
     os.environ.setdefault("TZ", settings.tz)
 
+    if os.getenv("PROBE_MODE", "").strip().lower() == "telegram":
+        from app.telegram_probe import run_probe_server
+
+        log.info("PROBE_MODE=telegram: starting Telegram connectivity probe")
+        await run_probe_server(settings)
+        return
+
     db = Database(settings.database_path)
     await db.init()
     if settings.vk_chat_peer_id:
