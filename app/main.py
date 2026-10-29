@@ -60,6 +60,14 @@ async def run() -> None:
 
     db = Database(settings.database_path)
     await db.init()
+    if settings.vk_chat_peer_id:
+        await db.upsert_peer(
+            settings.vk_chat_peer_id,
+            kind="chat",
+            role="chat",
+            status="active",
+            title="from env",
+        )
     log.info(
         "started: db=%s dry_run=%s vk=%s llm=%s model=%s",
         settings.database_path,
